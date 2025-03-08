@@ -346,7 +346,7 @@ async function getOrCreateWallet(userId: string, currency: string) {
     where: {
       userId,
       currency,
-      type: "SPOT",
+      type: "SPOT11",
     },
   });
   if (!wallet) {
@@ -358,7 +358,7 @@ async function getOrCreateWallet(userId: string, currency: string) {
 const createWallet = async (userId: string, currency: string) => {
   return await models.wallet.create({
     userId,
-    type: "SPOT",
+    type: "SPOT11",
     currency,
     balance: 0,
   });

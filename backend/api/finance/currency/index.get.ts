@@ -114,7 +114,7 @@ async function handleDeposit(walletType, where) {
           label: `${currency.id} - ${currency.name}`,
         }))
         .sort((a, b) => a.label.localeCompare(b.label));
-    case "SPOT":
+    case "SPOT14":
       return currencies
         .map((currency) => ({
           value: currency.currency,
@@ -186,7 +186,7 @@ async function handleTransfer(walletType, targetWalletType, userId) {
         }))
         .sort((a, b) => a.label.localeCompare(b.label));
       break;
-    case "SPOT":
+    case "SPOT15":
       const spotCurrencies = await models.exchangeCurrency.findAll({
         where: { status: true },
       });

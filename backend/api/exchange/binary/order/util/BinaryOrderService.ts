@@ -107,7 +107,7 @@ export class BinaryOrderService {
           where: {
             userId: userId,
             currency: pair,
-            type: "SPOT",
+            type: "SPOT7",
           },
           transaction: t,
           lock: t.LOCK.UPDATE,
