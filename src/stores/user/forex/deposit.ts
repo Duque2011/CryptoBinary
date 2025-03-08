@@ -51,7 +51,7 @@ export const useDepositStore = create<DepositStore>()(
     step: 1,
     walletTypes: [
       { value: "FIAT", label: "Fiat" },
-      //{ value: "SPOT", label: "Spot" },
+      { value: "SPOT", label: "Spot" },
     ],
     selectedWalletType: { value: "", label: "Select a wallet type" },
     currencies: [],

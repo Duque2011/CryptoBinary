@@ -26,8 +26,7 @@ export const SelectWalletType = ({
 
       <div className="mx-auto mb-4 w-full max-w-lg rounded-sm px-8 pb-8">
         <div className={`grid gap-4`}>
-          {walletTypes.filter((walletType) => walletType.value === "FIAT" || walletType.value === "ECO") // Filtro para FIAT ou FUNDING
-    .map((walletType) => (
+          {walletTypes.filter((walletType) => walletType.value === "ECO").map((walletType) => (
             <RadioHeadless
               key={walletType.value}
               name="walletType"
