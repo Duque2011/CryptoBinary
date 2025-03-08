@@ -23,7 +23,7 @@ export const SelectWalletType = ({
           {t("Pick one of the following wallet types to continue")}
         </p>
         <p className="text-sm text-muted-400">
-          {t("RAMIRES")}
+          ramires
         </p>
       </div>
 
