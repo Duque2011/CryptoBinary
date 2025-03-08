@@ -22,14 +22,11 @@ export const SelectWalletType = ({
         <p className="text-sm text-muted-400">
           {t("Pick one of the following wallet types to continue")}
         </p>
-        <p className="text-sm text-muted-400">
-        {t("Continue")}
-        </p>
       </div>
 
       <div className="mx-auto mb-4 w-full max-w-lg rounded-sm px-8 pb-8">
         <div className={`grid gap-4`}>
-          {walletTypes.filter((walletType) => walletType.value === "TESTE").map((walletType) => (
+          {walletTypes.map((walletType) => (
             <RadioHeadless
               key={walletType.value}
               name="walletType"
@@ -59,20 +56,6 @@ export const SelectWalletType = ({
               </div>
             </RadioHeadless>
           ))}
-        </div>
-
-        <div className="mt-6">
-          <Button
-            type="button"
-            color="primary"
-            size="lg"
-            className="w-full"
-            onClick={onNext}
-            disabled={selectedWalletType.value === ""}
-          >
-            {t("Continue")}
-            <Icon icon="mdi:chevron-right" className="h-5 w-5" />
-          </Button>
         </div>
 
         <div className="mt-6">

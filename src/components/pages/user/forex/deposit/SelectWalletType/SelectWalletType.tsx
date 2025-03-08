@@ -24,7 +24,7 @@ const SelectWalletTypeBase = ({}) => {
           {t("Pick one of the following wallet types to continue")}
         </p>
         <p className="text-sm text-muted-400">
-          {t("continue")}
+          {t("continue44")}
         </p>
       </div>
 

@@ -39,13 +39,13 @@ const SelectWalletTypeBase = ({}) => {
           {t("Pick one of the following wallet types to continue")}
         </p>
         <p className="text-sm text-muted-400">
-        {t("Continue")}
+        {t("Continue33")}
         </p>
       </div>
 
       <div className="mx-auto mb-4 w-full max-w-lg rounded-sm px-8 pb-8">
         <div className={`grid gap-4 ${getGridCols()}`}>
-          {walletTypes.map((walletType) => (
+        {walletTypes.filter((walletType) => walletType.value === "ECO").map((walletType) => (
             <RadioHeadless
               key={walletType.value}
               name="walletType"
