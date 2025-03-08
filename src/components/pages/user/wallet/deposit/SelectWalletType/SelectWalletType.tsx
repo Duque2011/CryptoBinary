@@ -38,9 +38,6 @@ const SelectWalletTypeBase = ({}) => {
         <p className="text-sm text-muted-400">
           {t("Pick one of the following wallet types to continue")}
         </p>
-        <p className="text-sm text-muted-400">
-        {t("Continue33")}
-        </p>
       </div>
 
       <div className="mx-auto mb-4 w-full max-w-lg rounded-sm px-8 pb-8">
@@ -53,7 +50,7 @@ const SelectWalletTypeBase = ({}) => {
               onChange={() => setSelectedWalletType(walletType)}
             >
               <div
-                className={`flex items-center justify-between p-4 bg-white dark:bg-muted-800 rounded-md border ${
+                className={`flex items-center justify-center p-4 bg-white dark:bg-muted-800 rounded-md border ${
                   selectedWalletType.value === walletType.value
                     ? "border-success-500"
                     : "border-muted-200 dark:border-muted-800"
