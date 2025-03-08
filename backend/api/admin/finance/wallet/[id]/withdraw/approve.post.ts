@@ -238,7 +238,7 @@ export async function getWalletQuery(userId: string, currency: string) {
     where: {
       userId,
       currency,
-      type: "SPOT4",
+      type: "SPOT",
     },
     include: [
       {

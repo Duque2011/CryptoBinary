@@ -110,8 +110,8 @@ export default async (data: Handler) => {
 
       const [currency, pair] = order.symbol.split("/");
 
-      const currencyWallet = await getWallet(user.id, "SPOT12", currency);
-      const pairWallet = await getWallet(user.id, "SPOT13", pair);
+      const currencyWallet = await getWallet(user.id, "SPOT", currency);
+      const pairWallet = await getWallet(user.id, "SPOT", pair);
 
       if (!currencyWallet || !pairWallet)
         throw createError(500, "Failed to fetch wallets");

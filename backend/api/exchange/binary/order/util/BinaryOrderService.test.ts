@@ -102,13 +102,13 @@ beforeEach(() => {
     if (
       where.userId === mockUserId &&
       where.currency === mockPair &&
-      where.type === "SPOT3"
+      where.type === "SPOT"
     ) {
       const w = Object.values(wallets).find(
         (w) =>
           w.userId === mockUserId &&
           w.currency === mockPair &&
-          w.type === "SPOT3"
+          w.type === "SPOT"
       );
       if (w) return { id: w.id, balance: w.balance };
     }
@@ -190,7 +190,7 @@ function createTestWallet(balance = INITIAL_WALLET_BALANCE) {
     balance,
     userId: mockUserId,
     currency: mockPair,
-    type: "SPOT6",
+    type: "SPOT",
   };
   return walletId;
 }

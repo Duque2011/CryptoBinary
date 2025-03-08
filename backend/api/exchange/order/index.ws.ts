@@ -78,8 +78,8 @@ class OrderHandler {
       const cost = Number(order.cost);
       const fee = Number(order.fee);
 
-      const currencyWallet = await getWallet(userId, "SPOT9", currency);
-      const pairWallet = await getWallet(userId, "SPOT10", pair);
+      const currencyWallet = await getWallet(userId, "SPOT", currency);
+      const pairWallet = await getWallet(userId, "SPOT", pair);
 
       if (!currencyWallet || !pairWallet) {
         throw new Error("Wallet not found");

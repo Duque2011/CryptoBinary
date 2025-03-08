@@ -22,7 +22,7 @@ export const walletStructure = async () => {
     name: "type",
     options: [
       { value: "FIAT", label: "Fiat" },
-      { value: "SPOT", label: "Spot" },
+      //{ value: "SPOT", label: "Spot" },
     ],
     placeholder: "Select wallet type",
   };
