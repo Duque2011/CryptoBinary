@@ -41,8 +41,8 @@ const SelectWalletTypeBase = ({}) => {
       </div>
 
       <div className="mx-auto mb-4 w-full max-w-lg rounded-sm px-8 pb-8">
-        <div className={`grid gap-4 ${getGridCols()} flex justify-center`}>
-        {walletTypes.filter((walletType) => walletType.value === "ECO").map((walletType) => (
+        <div className={`grid gap-4 ${getGridCols()} flex flex-col items-center`}>
+          {walletTypes.filter((walletType) => walletType.value === "ECO").map((walletType) => (
             <RadioHeadless
               key={walletType.value}
               name="walletType"
