@@ -40,17 +40,18 @@ const SelectWalletTypeBase = ({}) => {
         </p>
       </div>
 
-      <div className="mx-auto mb-4 w-full max-w-lg rounded-sm px-8 pb-8 flex justify-center">
-        <div className={`grid gap-4 ${getGridCols()}`}>
-        {walletTypes.filter((walletType) => walletType.value === "ECO").map((walletType) => (
+      <div className="mx-auto mb-4 w-full max-w-lg rounded-sm px-8 pb-8">
+        <div className={`grid gap-4 ${getGridCols()} flex justify-center items-center`}>
+          {walletTypes.filter((walletType) => walletType.value === "ECO").map((walletType) => (
             <RadioHeadless
               key={walletType.value}
               name="walletType"
               checked={selectedWalletType.value === walletType.value}
               onChange={() => setSelectedWalletType(walletType)}
+              className="w-full max-w-sm"
             >
               <div
-                className={`flex items-center justify-center p-4 bg-white dark:bg-muted-800 rounded-md border ${
+                className={`max-w-xs mx-autoflex items-center justify-center p-4 bg-white dark:bg-muted-800 rounded-md border ${
                   selectedWalletType.value === walletType.value
                     ? "border-success-500"
                     : "border-muted-200 dark:border-muted-800"
