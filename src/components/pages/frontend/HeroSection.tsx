@@ -49,7 +49,8 @@ const HeroSection = () => {
               <span className="bg-linear-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
                 {t("Crypto Gem")}
               </span>{" "}
-              {t("on")} {siteName}
+                {t("on")}
+                {/*{siteName}*/}
             </motion.h1>
             <motion.p
               className="mt-4 text-lg md:text-xl text-muted-600 dark:text-muted-400"
@@ -57,9 +58,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
             >
-              {t(
-                "We provide the latest information on the best cryptocurrencies to invest in."
-              )}
+              {t("subtitulo")}
             </motion.p>
             {isLoggedIn && pnl ? (
               <motion.div
