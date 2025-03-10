@@ -47,7 +47,7 @@ const HeroSection = () => {
             >
               {t("Find the Next")}{" "}
               <span className="bg-linear-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
-                {t("Crypto Gem")}
+                {t("CryptoGem")}
               </span>{" "}
                 {t("on")}
                 {/*{siteName}*/}
