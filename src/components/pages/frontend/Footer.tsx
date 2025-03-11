@@ -30,7 +30,8 @@ const FooterSection: React.FC = () => {
               {siteName}
             </Link>
             <p className="mt-3 text-xs sm:text-sm text-gray-600 dark:text-neutral-400">
-              {t(footerData.footerNote)}{" "}
+              {t("footertext2")}{" "}
+              {/* 
               <Link
                 className="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline font-medium dark:text-blue-500"
                 href={footerData.footerNoteLink}
@@ -40,6 +41,7 @@ const FooterSection: React.FC = () => {
               {t(
                 "analyze market movements, and prepare for trades with the latest news and insights from fellow traders."
               )}
+              */}
             </p>
           </div>
           <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6">
