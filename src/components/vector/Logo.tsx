@@ -18,7 +18,7 @@ const Logo: FC<LogoProps> = ({ className: classes }) => {
 
   return (
     <div className={`flex items-center h-[30px] w-[30px] ${classes}`}>
-      <MashImage src={logoSrc} alt="Workflow" />
+      <MashImage src={logoSrc} alt="Workflow" width={30} height={30} />
     </div>
   );
 };
