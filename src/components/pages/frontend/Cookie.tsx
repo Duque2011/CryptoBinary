@@ -222,7 +222,7 @@ const CookieBanner: React.FC = () => {
               className="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline font-medium dark:text-blue-500"
               href="/cookies"
             >
-              {t("Cookies Policy333")}
+              {t("CookiesPolicy")}
             </Link>
           </p>
 
