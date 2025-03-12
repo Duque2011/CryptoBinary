@@ -161,7 +161,7 @@ export const investmentPlanStructure = async () => {
     name: "walletType",
     options: [
       { value: "FIAT", label: "Fiat" },
-      { value: "SPOT", label: "Binária" },
+      { value: "Binária", label: "Binária" },
     ],
     placeholder: "Select wallet type",
   };
