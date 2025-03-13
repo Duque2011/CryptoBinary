@@ -10,7 +10,22 @@ interface TermsPageProps {
   content: string;
 }
 
-export const getStaticProps: GetStaticProps<TermsPageProps> = async () => {
+ts
+export const getStaticProps: GetStaticProps<TermsPageProps> = async ({ locale }) => {
+
+  const terms = `terms-${locale}.html`;
+  const filePath = path.join(process.cwd(), "template", terms);
+  const fileContents = fs.readFileSync(filePath, "utf8");
+
+  return {
+    props: {
+      content: fileContents,
+    },
+  };
+};
+
+/*
+export const getStaticProps: GetStaticProps<TermsPageProps> = async ({locale}) => {
   const filePath = path.join(process.cwd(), "template", "terms.html");
   const fileContents = fs.readFileSync(filePath, "utf8");
 
@@ -20,6 +35,7 @@ export const getStaticProps: GetStaticProps<TermsPageProps> = async () => {
     },
   };
 };
+*/
 
 const TermsPage: React.FC<TermsPageProps> = ({ content }) => {
   return (
