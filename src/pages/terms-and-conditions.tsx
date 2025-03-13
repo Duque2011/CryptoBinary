@@ -10,7 +10,6 @@ interface TermsPageProps {
   content: string;
 }
 
-ts
 export const getStaticProps: GetStaticProps<TermsPageProps> = async ({ locale }) => {
 
   const terms = `terms-${locale}.html`;
