@@ -10,8 +10,9 @@ interface CookiesPageProps {
   content: string;
 }
 
-export const getStaticProps: GetStaticProps<CookiesPageProps> = async () => {
-  const filePath = path.join(process.cwd(), "template", "cookies.html");
+export const getStaticProps: GetStaticProps<CookiesPageProps> = async ({ locale }) => {
+  const cookies = `cookies-${locale}.html`;
+  const filePath = path.join(process.cwd(), "template", cookies);
   const fileContents = fs.readFileSync(filePath, "utf8");
 
   return {
