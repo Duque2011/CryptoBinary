@@ -10,8 +10,9 @@ interface PrivacyPageProps {
   content: string;
 }
 
-export const getStaticProps: GetStaticProps<PrivacyPageProps> = async () => {
-  const filePath = path.join(process.cwd(), "template", "privacy.html");
+export const getStaticProps: GetStaticProps<PrivacyPageProps> = async ({ locale }) => {
+  const privacy = `privacy-${locale}.html`;
+  const filePath = path.join(process.cwd(), "template", privacy);
   const fileContents = fs.readFileSync(filePath, "utf8");
 
   return {
