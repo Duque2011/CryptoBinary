@@ -65,7 +65,7 @@ const Dialog: React.FC<DialogProps> = ({ open, setOpen, node, actions }) => {
                     shape="rounded-sm"
                     label="URL"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-4"
-                    placeholder="Eg. https://codecanyon.net/user/mashdiv"
+                    placeholder="Eg. https://codecanyon.net/user/CRYPTOBINARY"
                     defaultValue={url as string}
                     onChange={(e) => setUrl(e.target.value)}
                   />
