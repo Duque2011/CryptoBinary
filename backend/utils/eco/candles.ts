@@ -1,6 +1,7 @@
 import type { Order } from "./scylla/queries";
 
 export const intervals = [
+  "15s",
   "1m",
   "3m",
   "5m",
