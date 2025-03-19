@@ -103,9 +103,9 @@ export default async (data: Handler) => {
   // Get price in USD for fromCurrency
   let fromPriceUSD;
   switch (fromType) {
-    case "FIAT":
-      fromPriceUSD = await getFiatPriceInUSD(fromCurrency);
-      break;
+    //case "FIAT":
+    //  fromPriceUSD = await getFiatPriceInUSD(fromCurrency);
+    //  break;
     case "SPOT":
       fromPriceUSD = await getSpotPriceInUSD(fromCurrency);
       break;
@@ -119,9 +119,9 @@ export default async (data: Handler) => {
   // Get price in USD for toCurrency
   let toPriceUSD;
   switch (toType) {
-    case "FIAT":
-      toPriceUSD = await getFiatPriceInUSD(toCurrency);
-      break;
+    //case "FIAT":
+    //  toPriceUSD = await getFiatPriceInUSD(toCurrency);
+    //  break;
     case "SPOT":
       toPriceUSD = await getSpotPriceInUSD(toCurrency);
       break;

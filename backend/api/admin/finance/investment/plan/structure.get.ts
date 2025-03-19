@@ -160,7 +160,7 @@ export const investmentPlanStructure = async () => {
     label: "Wallet Type",
     name: "walletType",
     options: [
-      { value: "FIAT", label: "Fiat" },
+      //{ value: "FIAT", label: "Fiat" },
       { value: "SPOT", label: "Spot" },
     ],
     placeholder: "Select wallet type",
