@@ -338,7 +338,7 @@ const ChartBase = ({}: ChartProps) => {
       fullscreen: false,
       autosize: true,
       symbol: market?.symbol,
-      interval: "15" as ResolutionString,
+      interval: "15S" as ResolutionString,
       container: "tv_chart_container",
       datafeed: datafeed,
       library_path: "/lib/chart/charting_library/",
@@ -358,7 +358,7 @@ const ChartBase = ({}: ChartProps) => {
       },
       custom_css_url: "/lib/chart/themed.css",
     };
-
+    console.log("teste widgetOptions", widgetOptions);
     const tv = new widget(widgetOptions);
     setTvWidget(tv);
 
