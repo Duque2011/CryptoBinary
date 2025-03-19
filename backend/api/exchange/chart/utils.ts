@@ -141,7 +141,6 @@ function mergeAndSortData(existingData: any[], newData: any[]): any[] {
 
 export function intervalToMilliseconds(interval: string): number {
   const intervalMap: { [key: string]: number } = {
-    "15s": 15 * 1000,
     "1m": 60 * 1000,
     "3m": 3 * 60 * 1000,
     "5m": 5 * 60 * 1000,

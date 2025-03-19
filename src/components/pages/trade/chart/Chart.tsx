@@ -338,7 +338,7 @@ const ChartBase = ({}: ChartProps) => {
       fullscreen: false,
       autosize: true,
       symbol: market?.symbol,
-      interval: "60" as ResolutionString,
+      interval: "15" as ResolutionString,
       container: "tv_chart_container",
       datafeed: datafeed,
       library_path: "/lib/chart/charting_library/",
