@@ -55,10 +55,10 @@ export default async () => {
 
     // Format and combine all currencies into categorized objects
     const formattedCurrencies = {
-      //FIAT: fiatCurrencies.map((currency) => ({
-      // value: currency.id,
-      //  label: `${currency.id} - ${currency.name}`,
-      //})),
+      FIAT: fiatCurrencies.map((currency) => ({
+        value: currency.id,
+        label: `${currency.id} - ${currency.name}`,
+      })),
       SPOT: spotCurrencies.map((currency) => ({
         value: currency.currency,
         label: `${currency.currency} - ${currency.name}`,

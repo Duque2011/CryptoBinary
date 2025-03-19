@@ -34,7 +34,7 @@ export const metadata: OperationObject = {
       required: true,
       schema: {
         type: "string",
-        enum: ["SPOT", "ECO"],
+        enum: ["FIAT", "SPOT", "ECO"],
       },
     },
     {
@@ -91,18 +91,18 @@ export default async (data: Handler) => {
 
 async function handleDeposit(type: string, code: string) {
   switch (type) {
-    //case "FIAT":
-    //  const gateways = await models.depositGateway.findAll({
-    //    where: {
-    //      status: true,
-    //      [Op.and]: Sequelize.literal(`JSON_CONTAINS(currencies, '"${code}"')`),
-    //    },
-    //  });
+    case "FIAT":
+      const gateways = await models.depositGateway.findAll({
+        where: {
+          status: true,
+          [Op.and]: Sequelize.literal(`JSON_CONTAINS(currencies, '"${code}"')`),
+        },
+      });
 
-    //  const methods = await models.depositMethod.findAll({
-    //    where: { status: true },
-    //  });
-    //  return { gateways, methods };
+      const methods = await models.depositMethod.findAll({
+        where: { status: true },
+      });
+      return { gateways, methods };
     case "SPOT":
       const exchange = await ExchangeManager.startExchange();
       const provider = await ExchangeManager.getProvider();
@@ -193,12 +193,12 @@ async function handleDeposit(type: string, code: string) {
 
 async function handleWithdraw(type: string, code: string) {
   switch (type) {
-    //case "FIAT":
-    //  const methods = await models.withdrawMethod.findAll({
-    //    where: { status: true },
-    //  });
+    case "FIAT":
+      const methods = await models.withdrawMethod.findAll({
+        where: { status: true },
+      });
 
-    //  return { methods };
+      return { methods };
     case "SPOT":
       const exchange = await ExchangeManager.startExchange();
       const provider = await ExchangeManager.getProvider();

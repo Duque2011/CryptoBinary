@@ -75,7 +75,7 @@ export const metadata: OperationObject = {
 };
 
 const walletTypeToModel = {
-  //FIAT: async (where) => models.currency.findAll({ where }),
+  FIAT: async (where) => models.currency.findAll({ where }),
   SPOT: async (where) => models.exchangeCurrency.findAll({ where }),
   ECO: async (where) => models.ecosystemToken.findAll({ where }),
 };
@@ -107,13 +107,13 @@ async function handleDeposit(walletType, where) {
   let currencies = await getModel(where);
 
   switch (walletType) {
-    //case "FIAT":
-    //  return currencies
-    //    .map((currency) => ({
-    //      value: currency.id,
-    //      label: `${currency.id} - ${currency.name}`,
-    //    }))
-    //    .sort((a, b) => a.label.localeCompare(b.label));
+    case "FIAT":
+      return currencies
+        .map((currency) => ({
+          value: currency.id,
+          label: `${currency.id} - ${currency.name}`,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label));
     case "SPOT":
       return currencies
         .map((currency) => ({
@@ -175,17 +175,17 @@ async function handleTransfer(walletType, targetWalletType, userId) {
 
   let targetCurrencies: any[] = [];
   switch (targetWalletType) {
-    //case "FIAT":
-    //  const fiatCurrencies = await models.currency.findAll({
-    //    where: { status: true },
-    //  });
-    //  targetCurrencies = fiatCurrencies
-    //    .map((currency) => ({
-    //      value: currency.id,
-    //      label: `${currency.id} - ${currency.name}`,
-    //    }))
-    //    .sort((a, b) => a.label.localeCompare(b.label));
-    //  break;
+    case "FIAT":
+      const fiatCurrencies = await models.currency.findAll({
+        where: { status: true },
+      });
+      targetCurrencies = fiatCurrencies
+        .map((currency) => ({
+          value: currency.id,
+          label: `${currency.id} - ${currency.name}`,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label));
+      break;
     case "SPOT":
       const spotCurrencies = await models.exchangeCurrency.findAll({
         where: { status: true },

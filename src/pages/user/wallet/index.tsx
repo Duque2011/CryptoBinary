@@ -56,7 +56,7 @@ const columnConfig: ColumnConfigType[] = [
     type: "select",
     sortable: true,
     options: [
-      //{ value: "FIAT", label: "Fiat", color: "warning" },
+      { value: "FIAT", label: "Fiat", color: "warning" },
       { value: "SPOT", label: "Spot", color: "info" },
       { value: "ECO", label: "Funding", color: "primary" },
       { value: "FUTURES", label: "Futures", color: "success" },
