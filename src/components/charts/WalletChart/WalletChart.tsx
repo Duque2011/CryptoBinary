@@ -24,7 +24,8 @@ const WalletChartBase = ({ data }) => {
   // Validate and prepare chart data
   const validData = data.filter((item) => {
     const date = parseISO(item.date);
-    // Ensure FIAT and SPOT are not null and date is valid
+    // comentário Ensure FIAT and SPOT are not null and date is valid
+    //return item.FIAT != null && item.SPOT != null && isValid(date);
     return item.SPOT != null && isValid(date);
   });
 
@@ -35,10 +36,10 @@ const WalletChartBase = ({ data }) => {
 
   // Construct the series with guaranteed numeric data
   const series = [
-    {
-      name: "Fiat",
-      data: validData.map((item) => numOrZero(item.FIAT)),
-    },
+    //{
+    //  name: "Fiat",
+    //  data: validData.map((item) => numOrZero(item.FIAT)),
+    //},
     {
       name: "Spot",
       data: validData.map((item) => numOrZero(item.SPOT)),
