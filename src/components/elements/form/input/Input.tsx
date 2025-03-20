@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import { Icon, type IconifyIcon } from "@iconify/react";
 import type { VariantProps } from "class-variance-authority";
+import { useTranslation } from "next-i18next";
 import { inputVariants } from "@/components/elements/variants/input-variants";
 import Loader from "@/components/elements/base/loader/Loader";
 
@@ -37,6 +38,7 @@ const Input: FC<InputProps> = ({
   warning,
   ...props
 }) => {
+  const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -49,7 +51,7 @@ const Input: FC<InputProps> = ({
     <div className="w-full">
       {!!label && (
         <label className="font-sans text-[.68rem] text-muted-400">
-          {label}
+          {t(label)}
         </label>
       )}
       <div className={`relative w-full ${addon ? "flex" : ""}`}>
