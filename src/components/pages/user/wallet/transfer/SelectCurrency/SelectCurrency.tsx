@@ -77,7 +77,7 @@ const SelectCurrencyBase = ({}) => {
                   setStep(5);
                 }}
                 disabled={
-                  !selectedCurrency || selectedCurrency === "Select a currency"
+                  !selectedCurrency || selectedCurrency === t("Select a currency")
                 }
               >
                 {t("Continue")}
