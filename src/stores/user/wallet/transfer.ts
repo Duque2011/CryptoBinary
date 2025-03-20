@@ -84,10 +84,10 @@ export const useTransferStore = create<TransferStore>()(
       const ecosystemEnabled = hasExtension("ecosystem");
       const futuresEnabled = hasExtension("futures");
 
-      const walletTypes = [{ value: "SPOT", label: "Spot" }];
+      const walletTypes = [{ value: "SPOT", label: "Trader Unificado" }];
 
       if (ecosystemEnabled) {
-        walletTypes.push({ value: "ECO", label: "Funding" });
+        walletTypes.push({ value: "ECO", label: "Fundos" });
       }
 
       if (fiatWalletsEnabled) {
