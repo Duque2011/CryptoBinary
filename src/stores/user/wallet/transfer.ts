@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import $fetch from "@/utils/api";
-import { useTranslation } from "next-i18next";
 import { toast } from "sonner";
 import { useDashboardStore } from "@/stores/dashboard";
 
@@ -79,16 +78,16 @@ export const useTransferStore = create<TransferStore>()(
     clientId: null,
 
     initializeWalletTypes: () => {
-      const { t } = useTranslation();
+      
       const { getSetting, hasExtension } = useDashboardStore.getState();
       const fiatWalletsEnabled = getSetting("fiatWallets") === "true";
       const ecosystemEnabled = hasExtension("ecosystem");
       const futuresEnabled = hasExtension("futures");
 
-      const walletTypes = [{ value: "SPOT", label: t("Spot") }];
+      const walletTypes = [{ value: "SPOT", label: "Spot" }];
 
       if (ecosystemEnabled) {
-        walletTypes.push({ value: "ECO", label: t("Funding") });
+        walletTypes.push({ value: "ECO", label: "Funding" });
       }
 
       if (fiatWalletsEnabled) {
