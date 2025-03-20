@@ -182,9 +182,9 @@ const WalletDashboard = () => {
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <pre>{JSON.stringify(pnl.chart, null, 2)}</pre>
-              <WalletChart data={pnl.chart} />
-              
+              <WalletChart 
+                data={pnl.chart.map(({ FIAT, ...rest }) => rest)} 
+              />
             </motion.div>
           )}
         </AnimatePresence>
