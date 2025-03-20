@@ -182,8 +182,10 @@ const WalletDashboard = () => {
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.5 }}
             >
+              {console.log("Dados filtrados:", pnl.chart.map(({ FIAT, ...rest }) => rest))}
+              
               <WalletChart 
-                data={pnl.chart.map(({ FIAT, ...rest }) => rest)} 
+                data={pnl.chart.map(({ FIAT, ...rest }) => ({ ...rest }))} 
               />
             </motion.div>
           )}
