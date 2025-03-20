@@ -69,7 +69,7 @@ const Input: FC<InputProps> = ({
             ${shape === "full" ? "rounded-s-full" : ""}
           `}
           >
-            {t(addon)}
+            {addon}
           </div>
         ) : (
           ""

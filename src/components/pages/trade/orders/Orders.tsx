@@ -4,6 +4,7 @@ import { formatDate } from "date-fns";
 import useMarketStore from "@/stores/trade/market";
 import { useDashboardStore } from "@/stores/dashboard";
 import useWebSocketStore from "@/stores/trade/ws";
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useOrderStore } from "@/stores/trade/order";
 import { ObjectTable } from "@/components/elements/base/object-table";
@@ -40,6 +41,7 @@ const resultClass = (result: string) => {
 };
 
 const OrdersBase = () => {
+  const { t } = useTranslation();
   const { profile } = useDashboardStore();
   const tabs = [
     { value: "OPEN", label: "Open Orders" },
@@ -172,7 +174,7 @@ const OrdersBase = () => {
   const columnConfig: ColumnConfigType[] = [
     {
       field: "createdAt",
-      label: "Date",
+      label: t("Date"),
       type: "date",
       sortable: true,
       filterable: false,
@@ -181,13 +183,13 @@ const OrdersBase = () => {
     },
     {
       field: "type",
-      label: "Type",
+      label: t("Type"),
       type: "text",
       sortable: true,
     },
     {
       field: "side",
-      label: "Side",
+      label: t("Side"),
       type: "text",
       sortable: true,
       getValue: (row) => (
@@ -202,42 +204,42 @@ const OrdersBase = () => {
     },
     {
       field: "price",
-      label: "Price",
+      label: t("Price"),
       type: "number",
       sortable: true,
       getValue: (row) => row.price?.toFixed(getPrecision("price")),
     },
     {
       field: "amount",
-      label: "Amount",
+      label: t("Amount"),
       type: "number",
       sortable: true,
       getValue: (row) => row.amount?.toFixed(getPrecision("amount")),
     },
     {
       field: "filled",
-      label: "Filled",
+      label: t("Filled"),
       type: "number",
       sortable: true,
       getValue: (row) => row.filled?.toFixed(getPrecision("amount")),
     },
     {
       field: "remaining",
-      label: "Remaining",
+      label: t("Remaining"),
       type: "number",
       sortable: true,
       getValue: (row) => row.remaining?.toFixed(getPrecision("amount")),
     },
     {
       field: "cost",
-      label: "Cost",
+      label: t("Cost"),
       type: "number",
       sortable: true,
       getValue: (row) => row.cost?.toFixed(getPrecision("price")),
     },
     {
       field: "status",
-      label: "Status",
+      label: t("Status"),
       type: "text",
       sortable: true,
       getValue: (row) => (
@@ -250,7 +252,7 @@ const OrdersBase = () => {
     ...columnConfig,
     {
       field: "actions",
-      label: "Actions",
+      label: t("Actions"),
       type: "actions",
       sortable: false,
       actions: [
