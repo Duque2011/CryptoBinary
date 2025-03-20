@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import $fetch from "@/utils/api";
 import { toast } from "sonner";
-import { useTranslation } from "next-i18next";
 import { useDashboardStore } from "@/stores/dashboard";
 
 type WalletType = {
@@ -54,7 +53,7 @@ type TransferStore = {
 };
 
 const endpoint = "/api/finance";
-const { t } = useTranslation();
+
 export const useTransferStore = create<TransferStore>()(
   immer((set, get) => ({
     step: 1,
@@ -66,7 +65,7 @@ export const useTransferStore = create<TransferStore>()(
       from: [],
       to: [],
     },
-    selectedCurrency: t("Select a currency"),
+    selectedCurrency: "Select a currency",
     targetCurrency: "Select a currency",
 
     transferAmount: 0,
