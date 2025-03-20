@@ -4,7 +4,7 @@ import { useDashboardStore } from "@/stores/dashboard";
 import footerData from "../../../../data/footer.json";
 import { Icon } from "@iconify/react";
 
-const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Your Site Name";
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Crypto Binary";
 const FooterSection: React.FC = () => {
   const { t } = useTranslation();
   const { settings } = useDashboardStore();
