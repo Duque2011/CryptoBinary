@@ -175,18 +175,23 @@ const WalletDashboard = () => {
           </div>
         </div>
         <AnimatePresence>
-          {togglePnl && pnl?.chart && pnl.chart.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <WalletChart 
-                data={pnl.chart.map(({ FIAT, ...rest }) => ({ ...rest }))} 
-              />
-            </motion.div>
-          )}
+          {togglePnl && pnl?.chart && pnl.chart.length > 0 && (() => {
+            console.log("Dados originais:", pnl.chart);
+
+            const filteredData = pnl.chart.map(({ FIAT, ...rest }) => rest);
+            console.log("Dados filtrados:", filteredData);
+
+            return (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <WalletChart data={filteredData} />
+              </motion.div>
+            );
+          })()}
         </AnimatePresence>
       </Card>
 
