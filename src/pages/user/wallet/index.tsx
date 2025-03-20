@@ -165,14 +165,7 @@ const WalletDashboard = () => {
             </div>
           </div>
           <div
-            onClick={() => {
-              console.log("Antes da alteração:", togglePnl);
-              setTogglePnl((prev) => {
-                console.log("Depois da alteração:", !prev);
-                return !prev;
-              });
-            }}
-              
+            onClick={() => setTogglePnl(!togglePnl)}
             className="absolute bottom-0 left-[50%] border-t border-x bg-muted-50 dark:bg-muted-900 hover:bg-muted-200 dark:hover:bg-muted-950 text-muted-400 dark:text-muted-400 hover:text-muted-600 dark:hover:text-muted-300 cursor-pointer border-muted-200 dark:border-muted-700 transform -translate-x-1/2 w-12 flex items-center justify-center rounded-t-md"
           >
             <Icon
@@ -189,7 +182,9 @@ const WalletDashboard = () => {
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.5 }}
             >
+              <pre>{JSON.stringify(pnl.chart, null, 2)}</pre>
               <WalletChart data={pnl.chart} />
+              
             </motion.div>
           )}
         </AnimatePresence>
