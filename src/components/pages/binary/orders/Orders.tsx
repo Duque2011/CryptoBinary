@@ -28,8 +28,8 @@ const statusClass = (status: string) => {
 const OrdersBase = () => {
   const { t } = useTranslation();
   const tabs = [
-    { value: "OPEN", label: "Open Orders" },
-    { value: "HISTORY", label: "Order History" },
+    { value: "OPEN", label: t("open_orders") },
+    { value: "HISTORY", label: t("order_history") },
   ];
   const market = useMarketStore((state) => state.market, shallow);
   const getPrecision = (type: string) => Number(market?.precision?.[type] || 8);
