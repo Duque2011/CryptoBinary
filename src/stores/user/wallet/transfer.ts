@@ -65,8 +65,8 @@ export const useTransferStore = create<TransferStore>()(
       from: [],
       to: [],
     },
-    selectedCurrency: "Select a currency",
-    targetCurrency: "Select a currency",
+    selectedCurrency: "Select a currency2",
+    targetCurrency: "Select a currency3",
 
     transferAmount: 0,
     transfer: null,

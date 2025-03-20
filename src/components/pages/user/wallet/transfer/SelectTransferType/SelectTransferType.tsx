@@ -12,8 +12,8 @@ const SelectTransferTypeBase = () => {
   const { setStep, setTransferType, transferType, setClientId } =
     useTransferStore();
   const transferTypes = [
-    { value: "client", label: "Transfer to Client Wallet" },
-    { value: "wallet", label: "Transfer Between Wallets" },
+    { value: "client", label: t("Transfer to Client Wallet") },
+    { value: "wallet", label: t("Transfer Between Wallets") },
   ];
   const [selectedTransferType, setSelectedTransferType]: any =
     useState(transferType);
