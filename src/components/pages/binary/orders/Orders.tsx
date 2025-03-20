@@ -46,7 +46,7 @@ const OrdersBase = () => {
   const columnConfig: ColumnConfigType[] = [
     {
       field: "createdAt",
-      label: "Date",
+      label: t("Date"),
       type: "date",
       sortable: true,
       filterable: false,
@@ -55,13 +55,13 @@ const OrdersBase = () => {
     },
     {
       field: "type",
-      label: "Type",
+      label: t("Type"),
       type: "text",
       sortable: true,
     },
     {
       field: "side",
-      label: "Side",
+      label: t("Side"),
       type: "text",
       sortable: true,
       getValue: (row) => (
@@ -76,14 +76,14 @@ const OrdersBase = () => {
     },
     {
       field: "price",
-      label: "Price",
+      label: t("Price"),
       type: "number",
       sortable: true,
       getValue: (row) => row.price?.toFixed(getPrecision("price")),
     },
     {
       field: "closePrice",
-      label: "Close Price",
+      label: t("Close Price"),
       type: "number",
       sortable: true,
       renderCell: (row) => (
@@ -97,14 +97,14 @@ const OrdersBase = () => {
     },
     {
       field: "amount",
-      label: "Amount",
+      label: t("Amount"),
       type: "number",
       sortable: true,
       getValue: (row) => row.amount?.toFixed(getPrecision("amount")),
     },
     {
       field: "profit",
-      label: "Profit",
+      label: t("Profit"),
       type: "number",
       sortable: true,
       renderCell: (row) => (
