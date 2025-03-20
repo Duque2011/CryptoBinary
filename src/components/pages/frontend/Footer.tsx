@@ -69,7 +69,7 @@ const FooterSection: React.FC = () => {
         <div className="pt-5 mt-5 border-t border-gray-200 dark:border-neutral-700">
           <div className="sm:flex sm:justify-between sm:items-center">
             <p className="mt-1 text-xs sm:text-sm text-gray-600 dark:text-neutral-400">
-              {`${footerData.copyright}`}
+              Crypto Binary
             </p>
             <div className="flex space-x-4 mt-4 sm:mt-0">
               {socialLinks.facebook && (
