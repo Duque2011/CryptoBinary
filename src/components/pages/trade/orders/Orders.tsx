@@ -44,8 +44,8 @@ const OrdersBase = () => {
   const { t } = useTranslation();
   const { profile } = useDashboardStore();
   const tabs = [
-    { value: "OPEN", label: "Open Orders" },
-    { value: "HISTORY", label: "Order History" },
+    { value: "OPEN", label: t("open_orders") },
+    { value: "HISTORY", label: t("order_history") },
     { value: "AI", label: "AI Investments" },
   ];
   const { market } = useMarketStore();
