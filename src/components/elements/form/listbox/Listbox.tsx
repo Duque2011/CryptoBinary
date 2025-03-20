@@ -12,6 +12,7 @@ import { inputVariants } from "@/components/elements/variants/input-variants";
 import Avatar from "@/components/elements/base/avatar/Avatar";
 import Loader from "@/components/elements/base/loader/Loader";
 import { MashImage } from "@/components/elements/MashImage";
+import { useTranslation } from "next-i18next";
 
 interface ListboxItem {
   label: string;
@@ -57,7 +58,7 @@ const ListBox: FC<ListboxProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const selectRef = useRef<HTMLSelectElement>(null);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
@@ -142,7 +143,7 @@ const ListBox: FC<ListboxProps> = ({
                 ? selected.length > 2
                   ? `${selected.length} items`
                   : selected.map((item) => item.label).join(", ")
-                : selected?.label || placeholder || "Select an option"}
+                : selected?.label || placeholder || t("Select an option")}
             </span>
 
             <div
