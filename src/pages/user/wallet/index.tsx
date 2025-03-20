@@ -166,12 +166,13 @@ const WalletDashboard = () => {
           </div>
           <div
             onClick={() => {
-              console.log("Antes do clique:", togglePnl);
+              console.log("Antes da alteração:", togglePnl);
               setTogglePnl((prev) => {
-                console.log("Depois do clique:", !prev);
+                console.log("Depois da alteração:", !prev);
                 return !prev;
               });
             }}
+              
             className="absolute bottom-0 left-[50%] border-t border-x bg-muted-50 dark:bg-muted-900 hover:bg-muted-200 dark:hover:bg-muted-950 text-muted-400 dark:text-muted-400 hover:text-muted-600 dark:hover:text-muted-300 cursor-pointer border-muted-200 dark:border-muted-700 transform -translate-x-1/2 w-12 flex items-center justify-center rounded-t-md"
           >
             <Icon
