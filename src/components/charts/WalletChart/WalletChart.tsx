@@ -25,7 +25,7 @@ const WalletChartBase = ({ data }) => {
   const validData = data.filter((item) => {
     const date = parseISO(item.date);
     // Ensure FIAT and SPOT are not null and date is valid
-    return item.FIAT != null && item.SPOT != null && isValid(date);
+    return item.SPOT != null && isValid(date);
   });
 
   // If no valid data, show a fallback instead of rendering an invalid chart
