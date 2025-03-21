@@ -3,7 +3,6 @@ import { immer } from "zustand/middleware/immer";
 import { debounce } from "lodash";
 import { adminMenu, userMenu } from "@/data/constants/menu";
 import $fetch from "@/utils/api";
-import { useTranslation } from "react-i18next";
 
 const defaultTheme = process.env.NEXT_PUBLIC_DEFAULT_THEME || "system";
 export const THEME_KEY = "theme";
@@ -154,7 +153,6 @@ export const useDashboardStore = create<DashboardStore>()(
 
     const initialMenuType: "user" | "admin" = loadMenuTypeFromStorage();
     const initialFilteredMenu = [];
-    const { t } = useTranslation();
 
     return {
       profile: null,
@@ -196,9 +194,8 @@ export const useDashboardStore = create<DashboardStore>()(
           settings,
           extensions,
         } = get();
-        //const { t } = useTranslation();
         if (!settings || !extensions) return []; // Ensure settings and extensions are available
-      
+
         return menu
           .filter((menuItem) => {
             const hasPermission =
@@ -206,21 +203,29 @@ export const useDashboardStore = create<DashboardStore>()(
                 ? !profile
                 : menuItem.auth
                   ? profile &&
-                    checkPermission(menuItem.permission, profile.role.permissions)
+                    checkPermission(
+                      menuItem.permission,
+                      profile.role.permissions
+                    )
                   : true;
             const hasRequiredExtension =
               !menuItem.extension || hasExtension(menuItem.extension);
             const hasRequiredSetting =
               !menuItem.settings ||
-              menuItem.settings.every((setting) => getSetting(setting) === "true");
+              menuItem.settings.every(
+                (setting) => getSetting(setting) === "true"
+              );
             const isEnvValid = !menuItem.env || menuItem.env === "true";
-      
-            return hasPermission && hasRequiredExtension && hasRequiredSetting && isEnvValid;
+
+            return (
+              hasPermission &&
+              hasRequiredExtension &&
+              hasRequiredSetting &&
+              isEnvValid
+            );
           })
           .map((menuItem) => ({
             ...menuItem,
-            title: t(menuItem.title), // Traduz o título do menu principal
-            description: menuItem.description ? t(menuItem.description) : undefined,
             menu: menuItem.menu
               ?.filter((subItem) => {
                 const hasSubPermission =
@@ -228,47 +233,61 @@ export const useDashboardStore = create<DashboardStore>()(
                     ? !profile
                     : subItem.auth
                       ? profile &&
-                        checkPermission(subItem.permission, profile.role.permissions)
+                        checkPermission(
+                          subItem.permission,
+                          profile.role.permissions
+                        )
                       : true;
-                const hasSubExtension = !subItem.extension || hasExtension(subItem.extension);
+                const hasSubExtension =
+                  !subItem.extension || hasExtension(subItem.extension);
                 const hasSubSetting =
                   !subItem.settings ||
-                  subItem.settings.every((setting) => getSetting(setting) === "true");
+                  subItem.settings.every(
+                    (setting) => getSetting(setting) === "true"
+                  );
                 const isSubEnvValid = !subItem.env || subItem.env === "true";
-      
-                return hasSubPermission && hasSubExtension && hasSubSetting && isSubEnvValid;
+
+                return (
+                  hasSubPermission &&
+                  hasSubExtension &&
+                  hasSubSetting &&
+                  isSubEnvValid
+                );
               })
               .map((subItem) => ({
                 ...subItem,
-                title: t(subItem.title), // Traduz o título do submenu
-                description: subItem.description ? t(subItem.description) : undefined,
-                subMenu: subItem.subMenu
-                  ?.filter((subMenuItem) => {
-                    const hasSubMenuPermission =
-                      subMenuItem.auth === false
-                        ? !profile
-                        : subMenuItem.auth
-                          ? profile &&
-                            checkPermission(subMenuItem.permission, profile.role.permissions)
-                          : true;
-                    const hasSubMenuExtension =
-                      !subMenuItem.extension || hasExtension(subMenuItem.extension);
-                    const hasSubMenuSetting =
-                      !subMenuItem.settings ||
-                      subMenuItem.settings.every((setting) => getSetting(setting) === "true");
-                    const isSubMenuEnvValid = !subMenuItem.env || subMenuItem.env === "true";
-      
-                    return hasSubMenuPermission && hasSubMenuExtension && hasSubMenuSetting && isSubMenuEnvValid;
-                  })
-                  .map((subMenuItem) => ({
-                    ...subMenuItem,
-                    title: t(subMenuItem.title), // Traduz o título do submenu interno
-                    description: subMenuItem.description ? t(subMenuItem.description) : undefined,
-                  })), // Fim do subMenu.map()
-              })), // Fim do menu.map()
+                subMenu: subItem.subMenu?.filter((subMenuItem) => {
+                  const hasSubMenuPermission =
+                    subMenuItem.auth === false
+                      ? !profile
+                      : subMenuItem.auth
+                        ? profile &&
+                          checkPermission(
+                            subMenuItem.permission,
+                            profile.role.permissions
+                          )
+                        : true;
+                  const hasSubMenuExtension =
+                    !subMenuItem.extension ||
+                    hasExtension(subMenuItem.extension);
+                  const hasSubMenuSetting =
+                    !subMenuItem.settings ||
+                    subMenuItem.settings.every(
+                      (setting) => getSetting(setting) === "true"
+                    );
+                  const isSubMenuEnvValid =
+                    !subMenuItem.env || subMenuItem.env === "true";
+
+                  return (
+                    hasSubMenuPermission &&
+                    hasSubMenuExtension &&
+                    hasSubMenuSetting &&
+                    isSubMenuEnvValid
+                  );
+                }),
+              })),
           }));
       },
-      
 
       fetchProfile: debounce(async () => {
         const {
