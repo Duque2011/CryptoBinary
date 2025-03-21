@@ -1080,7 +1080,7 @@ export const userMenu: IMenu[] = [
         href: "/user/wallet",
         icon: "mdi:wallet",
         auth: true,
-        description: "Manage your wallet3333.",
+        description: "Manage your wallet.",
       },
       {
         title: "Affiliate",

@@ -20,7 +20,7 @@ const SelectCurrencyBase = ({}) => {
     <div>
       <div className="mb-12 space-y-1 text-center font-sans">
         <h2 className="text-2xl font-light text-muted-800 dark:text-muted-100">
-          {t("Select a")} {selectedWalletType.label} {t("Currency")}
+          {t("Select a")} {t("Currency")}
         </h2>
         <p className="text-sm text-muted-400">
           {t("Pick one of the following currencies to continue")}
@@ -30,6 +30,7 @@ const SelectCurrencyBase = ({}) => {
       <div className="mx-auto mb-4 w-full max-w-lg rounded-sm px-4 md:px-8 pb-8">
         <div>
           <ComboBox
+            label={t("Source Currency")}
             selected={selectedCurrency}
             options={currencies}
             setSelected={setSelectedCurrency}
