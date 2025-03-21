@@ -154,6 +154,7 @@ export const useDashboardStore = create<DashboardStore>()(
 
     const initialMenuType: "user" | "admin" = loadMenuTypeFromStorage();
     const initialFilteredMenu = [];
+    const { t } = useTranslation();
 
     return {
       profile: null,
@@ -195,7 +196,7 @@ export const useDashboardStore = create<DashboardStore>()(
           settings,
           extensions,
         } = get();
-        const { t } = useTranslation();
+        //const { t } = useTranslation();
         if (!settings || !extensions) return []; // Ensure settings and extensions are available
       
         return menu
