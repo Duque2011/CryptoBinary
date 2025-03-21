@@ -3,7 +3,6 @@ import { immer } from "zustand/middleware/immer";
 import { debounce } from "lodash";
 import { adminMenu, userMenu } from "@/data/constants/menu";
 import $fetch from "@/utils/api";
-import { useTranslation } from "react-i18next";
 
 const defaultTheme = process.env.NEXT_PUBLIC_DEFAULT_THEME || "system";
 export const THEME_KEY = "theme";
@@ -61,8 +60,6 @@ type User = {
     provider: string;
   }[];
 };
-
-const { t } = useTranslation();
 
 const readMode = () => {
   if (typeof window === "undefined") {
@@ -229,7 +226,6 @@ export const useDashboardStore = create<DashboardStore>()(
           })
           .map((menuItem) => ({
             ...menuItem,
-            //description: menuItem.descriptionTranslationKey ? t(menuItem.descriptionTranslationKey) : undefined,
             menu: menuItem.menu
               ?.filter((subItem) => {
                 const hasSubPermission =
@@ -260,7 +256,6 @@ export const useDashboardStore = create<DashboardStore>()(
               })
               .map((subItem) => ({
                 ...subItem,
-                description: subItem.descriptionTranslationKey ? t(subItem.descriptionTranslationKey): undefined,
                 subMenu: subItem.subMenu?.filter((subMenuItem) => {
                   const hasSubMenuPermission =
                     subMenuItem.auth === false
