@@ -3,10 +3,12 @@ import NavDropdown from "../navbar/NavDropdown";
 import NavbarItem from "../navbar/NavbarItem";
 import { useRouter } from "next/router";
 import { useDashboardStore } from "@/stores/dashboard";
+import { useTranslation } from "react-i18next";
 
 const MenuBase = () => {
   const { isSidebarOpenedMobile, filteredMenu } = useDashboardStore();
   const router = useRouter();
+  const { t } = useTranslation();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const MenuBase = () => {
       return (
         <NavDropdown
           key={idx}
-          title={item.title}
+          title={t(item.title)}
           icon={
             item.icon ||
             (isMenuItemActive(item) ? "ph:dot-fill" : "ph:dot-duotone")
