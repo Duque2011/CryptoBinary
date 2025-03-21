@@ -26,9 +26,9 @@ const MenuBase = () => {
       icon={
         item.icon || (isMenuItemActive(item) ? "ph:dot-fill" : "ph:dot-duotone")
       }
-      title={item.title}
+      title={t(item.title)}
       href={item.href}
-      description={hasDescription && item.description}
+      description={hasDescription && item.description ? t(item.description) : undefined}
     />
   );
 
@@ -50,7 +50,7 @@ const MenuBase = () => {
             (isMenuItemActive(item) ? "ph:dot-fill" : "ph:dot-duotone")
           }
           nested={nested}
-          description={t(hasDescription && item.description)}
+          description={hasDescription && item.description ? t(item.description) : undefined}
         >
           {subMenu.map((subItem, subIdx) =>
             subItem.subMenu || subItem.menu
