@@ -50,7 +50,7 @@ const MenuBase = () => {
             (isMenuItemActive(item) ? "ph:dot-fill" : "ph:dot-duotone")
           }
           nested={nested}
-          description={hasDescription && item.description}
+          description={t(hasDescription && item.description)}
         >
           {subMenu.map((subItem, subIdx) =>
             subItem.subMenu || subItem.menu
