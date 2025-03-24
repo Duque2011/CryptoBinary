@@ -1023,7 +1023,8 @@ export const userMenu: IMenu[] = [
     menu: [
       {
         title: "Spot Trading",
-        href: "/market",
+        //href: "/market",
+        href: "trade/BTC_USDT",
         icon: "solar:chart-2-bold-duotone",
         description: "View the latest market data.",
       },
