@@ -81,6 +81,7 @@ const OrderBase = ({}: OrderProps) => {
           </span>
         </button>
         {/* AI Investment */}
+        {/*
         <button
           type="button"
           className={`shrink-0 border-b-2 px-6 py-2 text-sm transition-colors duration-300
@@ -97,6 +98,7 @@ const OrderBase = ({}: OrderProps) => {
         >
           <span>{t("AI Investment")}</span>
         </button>
+        */}
       </div>
       <div className="w-full flex p-4 flex-col h-full">
         {mainTab === "SPOT" && (
