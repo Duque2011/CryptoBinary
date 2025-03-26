@@ -199,7 +199,7 @@ const OrderBase = ({}: OrderProps) => {
             </>
           )}
 
-          {mainTab === "AI_INVESTMENT" && <AiInvestmentInput />}
+          {/*{mainTab === "AI_INVESTMENT" && <AiInvestmentInput />}*/}
         </div>
       </div>
     </div>
