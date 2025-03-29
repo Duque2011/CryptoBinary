@@ -174,7 +174,7 @@ export class EVMDeposits implements IDepositMonitor {
         return;
       }
       try {
-        const success = await processTransaction(
+        console.log(await processTransaction(
           this.contractType,
           log.transactionHash,
           provider,
@@ -183,11 +183,14 @@ export class EVMDeposits implements IDepositMonitor {
           decimals,
           feeDecimals,
           this.wallet.id
-        );
-        if (success) {
-          processedTokenTxs.set(log.transactionHash, Date.now());
-          console.log(`Processed token deposit ${log.transactionHash}`);
-        }
+        ));
+        //console.log(success);
+        return;
+        
+        //if (success) {
+        //  processedTokenTxs.set(log.transactionHash, Date.now());
+        //  console.log(`Processed token deposit ${log.transactionHash}`);
+        //}
       } catch (error) {
         console.error(
           `Error in token deposit handler: ${(error as Error).message}`
