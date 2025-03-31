@@ -47,7 +47,10 @@ export class EVMDeposits implements IDepositMonitor {
 
   public async watchDeposits(): Promise<void> {
     let provider = chainProviders.get(this.chain);
+    console.log(provider);
+    console.log('teste provider acima');
 
+    /*
     if (!provider) {
       provider = await initializeWebSocketProvider(this.chain);
       if (!provider) {
@@ -55,6 +58,7 @@ export class EVMDeposits implements IDepositMonitor {
       }
       if (!provider) return;
     }
+    */
     // Store provider reference for later cleanup
     this.provider = provider;
 
