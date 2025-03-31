@@ -170,6 +170,7 @@ export class EVMDeposits implements IDepositMonitor {
 
     // Define and store the event listener for token transfers
     this.tokenEventListener = async (log) => {
+      console.log(processedTokenTxs.has(log.transactionHash));
       if (processedTokenTxs.has(log.transactionHash)) {
         console.log('teste');
         //return;
