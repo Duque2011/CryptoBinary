@@ -181,10 +181,8 @@ export class EVMDeposits implements IDepositMonitor {
 
     // Define and store the event listener for token transfers
     this.tokenEventListener = async (log) => {
-      console.dir(processedTokenTxs.has(log.transactionHash));
       if (processedTokenTxs.has(log.transactionHash)) {
-        console.log('teste');
-        //return;
+        return;
       }
       try {
         const success = await processTransaction(
@@ -197,7 +195,8 @@ export class EVMDeposits implements IDepositMonitor {
           feeDecimals,
           this.wallet.id
         );
-        //console.log(success);
+
+        console.log(`Transaction processing result: ${success ? 'Success' : 'Failed'}`);
         
         if (success) {
           processedTokenTxs.set(log.transactionHash, Date.now());
