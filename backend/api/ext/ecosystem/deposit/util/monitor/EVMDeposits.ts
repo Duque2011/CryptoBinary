@@ -69,10 +69,10 @@ export class EVMDeposits implements IDepositMonitor {
 
     if (this.contractType === "NATIVE") {
       console.log('é nativo');
-     // await this.watchNativeDeposits(provider, feeDecimals);
+      await this.watchNativeDeposits(provider, feeDecimals);
     } else {
       console.log('não é native');
-      //await this.watchTokenDeposits(provider, feeDecimals);
+      await this.watchTokenDeposits(provider, feeDecimals);
     }
   }
 
@@ -143,6 +143,8 @@ export class EVMDeposits implements IDepositMonitor {
 
   private async watchTokenDeposits(provider: any, feeDecimals: number) {
     const token = await getEcosystemToken(this.chain, this.currency);
+    console.log('proxima linha é para encontrar o token');
+    console.log(token);
     if (!token) {
       console.error(`Token ${this.currency} not found`);
       return;
