@@ -50,24 +50,29 @@ export class EVMDeposits implements IDepositMonitor {
     console.log(provider);
     console.log('teste provider acima');
 
-    /*
     if (!provider) {
       provider = await initializeWebSocketProvider(this.chain);
       if (!provider) {
+        console.log('entrou no if para inicializar Http');
+        console.log(provider);
         provider = await initializeHttpProvider(this.chain);
       }
       if (!provider) return;
     }
-    */
+    
     // Store provider reference for later cleanup
     this.provider = provider;
 
     const feeDecimals = chainConfigs[this.chain].decimals;
+    console.log(feeDecimals);
+    console.log('verificar qual configuracão tem em feeDecimals');
 
     if (this.contractType === "NATIVE") {
-      await this.watchNativeDeposits(provider, feeDecimals);
+      console.log('é nativo');
+     // await this.watchNativeDeposits(provider, feeDecimals);
     } else {
-      await this.watchTokenDeposits(provider, feeDecimals);
+      console.log('não é native');
+      //await this.watchTokenDeposits(provider, feeDecimals);
     }
   }
 
