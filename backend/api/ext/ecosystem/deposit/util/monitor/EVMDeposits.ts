@@ -2,7 +2,7 @@
 import { IDepositMonitor } from "./IDepositMonitor";
 import { getEcosystemToken } from "@b/utils/eco/tokens";
 import { fetchEcosystemTransactions } from "@b/utils/eco/transactions";
-import { chainConfigs } from "@b/utils/eco/chains";
+import { chainConfigs, getTimestampInSeconds } from "@b/utils/eco/chains";
 import {
   initializeWebSocketProvider,
   initializeHttpProvider,
@@ -11,6 +11,7 @@ import {
 import { ethers } from "ethers";
 import { processTransaction, createTransactionDetails } from "../DepositUtils";
 import { storeAndBroadcastTransaction } from "@b/utils/eco/redis/deposit";
+import { timeStamp } from "console";
 
 interface EVMOptions {
   wallet: walletAttributes;
@@ -96,7 +97,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save the interval ID so we can clear it later
     this.nativeCleanupIntervalId = setInterval(
       cleanupProcessedNativeTxs,
-      10 * 60 * 1000
+      5 * 60 * 1000
     );
 
     const verifyDeposits = async () => {
@@ -138,7 +139,7 @@ export class EVMDeposits implements IDepositMonitor {
 
     // Initial check then poll every 10 seconds
     await verifyDeposits();
-    this.nativeVerifyIntervalId = setInterval(verifyDeposits, 30000);
+    this.nativeVerifyIntervalId = setInterval(verifyDeposits, 10000);
   }
 
   private async watchTokenDeposits(provider: any, feeDecimals: number) {
@@ -163,11 +164,13 @@ export class EVMDeposits implements IDepositMonitor {
 
     // Map to track processed token deposits: txHash => timestamp (ms)
     const processedTokenTxs: Map<string, number> = new Map();
-    const PROCESSING_EXPIRY_MS = 120 * 1000; // 10 minutes
+    const PROCESSING_EXPIRY_MS = 30 * 60 * 1000; // 30 minutes
 
     const cleanupProcessedTokenTxs = () => {
       const now = Date.now();
-      console.log(now);
+      const tempo = timeStamp();
+      console.log(now, 'variavel NOW');
+      console.log(tempo);
       for (const [txHash, timestamp] of processedTokenTxs.entries()) {
         if (now - timestamp > PROCESSING_EXPIRY_MS) {
           processedTokenTxs.delete(txHash);
@@ -177,7 +180,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save interval ID for cleanup of processed token txs
     this.tokenCleanupIntervalId = setInterval(
       cleanupProcessedTokenTxs,
-      60 * 1000
+      5 * 60 * 1000
     );
 
     // Define and store the event listener for token transfers
