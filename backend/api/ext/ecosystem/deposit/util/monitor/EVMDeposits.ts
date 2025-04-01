@@ -138,7 +138,7 @@ export class EVMDeposits implements IDepositMonitor {
 
     // Initial check then poll every 10 seconds
     await verifyDeposits();
-    this.nativeVerifyIntervalId = setInterval(verifyDeposits, 10000);
+    this.nativeVerifyIntervalId = setInterval(verifyDeposits, 480000);
   }
 
   private async watchTokenDeposits(provider: any, feeDecimals: number) {
