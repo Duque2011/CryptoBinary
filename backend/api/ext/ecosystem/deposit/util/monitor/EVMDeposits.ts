@@ -96,7 +96,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save the interval ID so we can clear it later
     this.nativeCleanupIntervalId = setInterval(
       cleanupProcessedNativeTxs,
-      60 * 1000
+      10 * 60 * 1000
     );
 
     const verifyDeposits = async () => {
@@ -138,7 +138,7 @@ export class EVMDeposits implements IDepositMonitor {
 
     // Initial check then poll every 10 seconds
     await verifyDeposits();
-    this.nativeVerifyIntervalId = setInterval(verifyDeposits, 480000);
+    this.nativeVerifyIntervalId = setInterval(verifyDeposits, 30000);
   }
 
   private async watchTokenDeposits(provider: any, feeDecimals: number) {
@@ -176,7 +176,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save interval ID for cleanup of processed token txs
     this.tokenCleanupIntervalId = setInterval(
       cleanupProcessedTokenTxs,
-      60 * 1000
+      10 * 60 * 1000
     );
 
     // Define and store the event listener for token transfers
