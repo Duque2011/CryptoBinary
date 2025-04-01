@@ -164,13 +164,10 @@ export class EVMDeposits implements IDepositMonitor {
 
     // Map to track processed token deposits: txHash => timestamp (ms)
     const processedTokenTxs: Map<string, number> = new Map();
-    const PROCESSING_EXPIRY_MS = 30 * 60 * 1000; // 30 minutes
+    const PROCESSING_EXPIRY_MS = 10 * 60 * 1000; // 10 minutes
 
     const cleanupProcessedTokenTxs = () => {
       const now = Date.now();
-      const tempo = timeStamp();
-      console.log(now, 'variavel NOW');
-      console.log(tempo);
       for (const [txHash, timestamp] of processedTokenTxs.entries()) {
         if (now - timestamp > PROCESSING_EXPIRY_MS) {
           processedTokenTxs.delete(txHash);
@@ -180,7 +177,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save interval ID for cleanup of processed token txs
     this.tokenCleanupIntervalId = setInterval(
       cleanupProcessedTokenTxs,
-      5 * 60 * 1000
+      60 * 1000
     );
 
     // Define and store the event listener for token transfers
