@@ -3,6 +3,8 @@ import { IDepositMonitor } from "./IDepositMonitor";
 import { getEcosystemToken } from "@b/utils/eco/tokens";
 import { fetchEcosystemTransactions } from "@b/utils/eco/transactions";
 import { chainConfigs } from "@b/utils/eco/chains";
+import { createWorker } from "@b/utils/cron";
+import { verifyPendingTransactions } from "../PendingVerification";
 import {
   initializeWebSocketProvider,
   initializeHttpProvider,
@@ -12,6 +14,7 @@ import { ethers } from "ethers";
 import { processTransaction, createTransactionDetails } from "../DepositUtils";
 import { storeAndBroadcastTransaction } from "@b/utils/eco/redis/deposit";
 
+let workerInitialized = false;
 interface EVMOptions {
   wallet: walletAttributes;
   chain: string;
@@ -167,14 +170,7 @@ export class EVMDeposits implements IDepositMonitor {
 
     const cleanupProcessedTokenTxs = () => {
       const now = Date.now();
-      const date = new Date(now);
-      console.log("Data atual:", date.toLocaleDateString(), date.toLocaleTimeString());
-      
-      console.log('acima tem a data atual');
-      
       for (const [txHash, timestamp] of processedTokenTxs.entries()) {
-        console.log(now - timestamp > PROCESSING_EXPIRY_MS);
-        console.log('acima tem o resultado do tempo');
         if (now - timestamp > PROCESSING_EXPIRY_MS) {
           processedTokenTxs.delete(txHash);
         }
@@ -208,6 +204,16 @@ export class EVMDeposits implements IDepositMonitor {
         if (success) {
           processedTokenTxs.set(log.transactionHash, Date.now());
           console.log(`Processed token deposit ${log.transactionHash}`);
+          
+          if (!success && !workerInitialized) {
+            await createWorker(
+              "verifyPendingTransactions",
+              verifyPendingTransactions,
+              10000
+            );
+            console.log("Verification worker started");
+            workerInitialized = true;
+          }
         }
       } catch (error) {
         console.error(
