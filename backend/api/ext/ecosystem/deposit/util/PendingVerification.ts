@@ -147,10 +147,6 @@ export async function verifyPendingTransactions() {
                 }
               );
 
-              if (txDetails.contractType === "NO_PERMIT") {
-                unlockAddress(txDetails.to);
-              }
-
               if (response.wallet?.userId) {
                 await handleNotification({
                   userId: response.wallet.userId,
@@ -158,6 +154,10 @@ export async function verifyPendingTransactions() {
                   message: `Your deposit of ${updatedTxDetails?.amount} ${response.wallet.currency} has been confirmed`,
                   type: "ACTIVITY",
                 });
+              }
+
+              if (txDetails.contractType === "NO_PERMIT") {
+                unlockAddress(txDetails.to);
               }
 
               delete pendingTransactions[txHash];
