@@ -168,7 +168,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save interval ID for cleanup of processed token txs
     this.tokenCleanupIntervalId = setInterval(
       cleanupProcessedTokenTxs,
-      60 * 1000
+      10 * 60 * 1000
     );
 
     // Define and store the event listener for token transfers
