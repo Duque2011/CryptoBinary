@@ -50,14 +50,10 @@ export class EVMDeposits implements IDepositMonitor {
 
   public async watchDeposits(): Promise<void> {
     let provider = chainProviders.get(this.chain);
-    console.log(provider);
-    console.log('teste provider acima');
-
+    
     if (!provider) {
       provider = await initializeWebSocketProvider(this.chain);
       if (!provider) {
-        console.log('entrou no if para inicializar Http');
-        console.log(provider);
         provider = await initializeHttpProvider(this.chain);
       }
       if (!provider) return;
@@ -67,14 +63,10 @@ export class EVMDeposits implements IDepositMonitor {
     this.provider = provider;
 
     const feeDecimals = chainConfigs[this.chain].decimals;
-    console.log(feeDecimals);
-    console.log('verificar qual configuracão tem em feeDecimals');
-
+    
     if (this.contractType === "NATIVE") {
-      console.log('é nativo');
       await this.watchNativeDeposits(provider, feeDecimals);
     } else {
-      console.log('não é native');
       await this.watchTokenDeposits(provider, feeDecimals);
     }
   }
@@ -146,8 +138,7 @@ export class EVMDeposits implements IDepositMonitor {
 
   private async watchTokenDeposits(provider: any, feeDecimals: number) {
     const token = await getEcosystemToken(this.chain, this.currency);
-    console.log('proxima linha é para encontrar o token');
-    console.log(token);
+    
     if (!token) {
       console.error(`Token ${this.currency} not found`);
       return;
@@ -179,7 +170,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save interval ID for cleanup of processed token txs
     this.tokenCleanupIntervalId = setInterval(
       cleanupProcessedTokenTxs,
-      2 * 60 * 1000
+      60 * 1000
     );
 
     // Define and store the event listener for token transfers
@@ -212,6 +203,8 @@ export class EVMDeposits implements IDepositMonitor {
               verifyPendingTransactions,
               10000
             );
+
+            console.log(testing);
             console.log("Verification worker started");
             workerInitialized = true;
         }
