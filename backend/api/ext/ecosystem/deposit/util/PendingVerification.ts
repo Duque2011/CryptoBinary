@@ -95,9 +95,6 @@ export async function verifyPendingTransactions() {
 
               isConfirmed = receipt.status === 1;
 
-              console.log(isConfirmed);
-              console.log('verificar o status de isConfirmed');
-
               updatedTxDetails = {
                 ...txDetails,
                 gasUsed: receipt.gasUsed.toString(),
@@ -112,13 +109,10 @@ export async function verifyPendingTransactions() {
           }
 
           if (isConfirmed && updatedTxDetails) {
-            console.log('passou pelo if de confirmacão');
+            
             try {
               const response = await handleEcosystemDeposit(updatedTxDetails);
 
-              console.log(response);
-              console.log('resposta de handleEcosystemDeposit');
-              
               if (!response.transaction) {
                 console.log(
                   `Transaction ${txHash} already processed or invalid. Removing.`
@@ -160,6 +154,8 @@ export async function verifyPendingTransactions() {
                 }
               );
 
+              
+
               if (response.wallet?.userId) {
                 await handleNotification({
                   userId: response.wallet.userId,
@@ -169,9 +165,7 @@ export async function verifyPendingTransactions() {
                 });
               }
 
-              if (txDetails.contractType === "NO_PERMIT") {
-                unlockAddress(txDetails.to);
-              }
+              
 
               delete pendingTransactions[txHash];
               await offloadToRedis("pendingTransactions", pendingTransactions);
