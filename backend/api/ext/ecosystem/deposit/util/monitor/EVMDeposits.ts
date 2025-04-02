@@ -179,7 +179,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save interval ID for cleanup of processed token txs
     this.tokenCleanupIntervalId = setInterval(
       cleanupProcessedTokenTxs,
-      60 * 1000
+      2 * 60 * 1000
     );
 
     // Define and store the event listener for token transfers
@@ -205,7 +205,8 @@ export class EVMDeposits implements IDepositMonitor {
           processedTokenTxs.set(log.transactionHash, Date.now());
           console.log(`Processed token deposit ${log.transactionHash}`);
           
-          if (!success && !workerInitialized) {
+          const testing = 
+          //if (!success && !workerInitialized) {
             await createWorker(
               "verifyPendingTransactions",
               verifyPendingTransactions,
@@ -213,7 +214,6 @@ export class EVMDeposits implements IDepositMonitor {
             );
             console.log("Verification worker started");
             workerInitialized = true;
-          }
         }
       } catch (error) {
         console.error(
