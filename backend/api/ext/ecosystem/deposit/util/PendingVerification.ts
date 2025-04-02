@@ -70,6 +70,8 @@ export async function verifyPendingTransactions() {
           } else {
             // EVM-compatible chain verification
             let provider = chainProviders.get(chain);
+            console.log(provider);
+            console.log('verificando provider no arquivo pendente');
             if (!provider) {
               provider = await initializeWebSocketProvider(chain);
               if (!provider) {
@@ -78,18 +80,24 @@ export async function verifyPendingTransactions() {
             }
 
             if (!provider) {
+              console.log('ainda com erro no provider');
               console.error(`Provider not available for chain ${chain}`);
               return; // Keep pending
             }
 
             try {
               const receipt = await provider.getTransactionReceipt(txHash);
+              console.log(receipt, '  -  Verificando o que tem na receipt');
               if (!receipt) {
                 console.log(`Transaction ${txHash} not yet confirmed.`);
                 return; // Keep in pending state
               }
 
               isConfirmed = receipt.status === 1;
+
+              console.log(isConfirmed);
+              console.log('verificar o status de isConfirmed');
+
               updatedTxDetails = {
                 ...txDetails,
                 gasUsed: receipt.gasUsed.toString(),
@@ -104,8 +112,13 @@ export async function verifyPendingTransactions() {
           }
 
           if (isConfirmed && updatedTxDetails) {
+            console.log('passou pelo if de confirmacão');
             try {
               const response = await handleEcosystemDeposit(updatedTxDetails);
+
+              console.log(response);
+              console.log('resposta de handleEcosystemDeposit');
+              
               if (!response.transaction) {
                 console.log(
                   `Transaction ${txHash} already processed or invalid. Removing.`
