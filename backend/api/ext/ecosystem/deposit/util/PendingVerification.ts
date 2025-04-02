@@ -103,11 +103,6 @@ export async function verifyPendingTransactions() {
             }
           }
 
-          console.log(isConfirmed);
-          console.log('confirmado');
-          console.log(updatedTxDetails);
-          console.log('detalhes');
-          
           if (isConfirmed && updatedTxDetails) {
             try {
               const response = await handleEcosystemDeposit(updatedTxDetails);
@@ -151,9 +146,6 @@ export async function verifyPendingTransactions() {
                   },
                 }
               );
-
-              console.log(txDetails.contractType);
-              console.log('Verificando o txDetails.contractType');
 
               if (txDetails.contractType === "NO_PERMIT") {
                 unlockAddress(txDetails.to);

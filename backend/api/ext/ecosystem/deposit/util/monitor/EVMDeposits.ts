@@ -97,7 +97,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save the interval ID so we can clear it later
     this.nativeCleanupIntervalId = setInterval(
       cleanupProcessedNativeTxs,
-      5 * 60 * 1000
+      60 * 1000
     );
 
     const verifyDeposits = async () => {
