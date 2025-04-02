@@ -70,8 +70,7 @@ export async function verifyPendingTransactions() {
           } else {
             // EVM-compatible chain verification
             let provider = chainProviders.get(chain);
-            console.log(provider);
-            console.log('verificando provider no arquivo pendente');
+            
             if (!provider) {
               provider = await initializeWebSocketProvider(chain);
               if (!provider) {
@@ -80,14 +79,13 @@ export async function verifyPendingTransactions() {
             }
 
             if (!provider) {
-              console.log('ainda com erro no provider');
               console.error(`Provider not available for chain ${chain}`);
               return; // Keep pending
             }
 
             try {
               const receipt = await provider.getTransactionReceipt(txHash);
-              console.log(receipt, '  -  Verificando o que tem na receipt');
+              
               if (!receipt) {
                 console.log(`Transaction ${txHash} not yet confirmed.`);
                 return; // Keep in pending state
@@ -154,7 +152,9 @@ export async function verifyPendingTransactions() {
                 }
               );
 
-              
+              if (txDetails.contractType === "NO_PERMIT") {
+                unlockAddress(txDetails.to);
+              }
 
               if (response.wallet?.userId) {
                 await handleNotification({

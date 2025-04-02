@@ -3,8 +3,6 @@ import { IDepositMonitor } from "./IDepositMonitor";
 import { getEcosystemToken } from "@b/utils/eco/tokens";
 import { fetchEcosystemTransactions } from "@b/utils/eco/transactions";
 import { chainConfigs } from "@b/utils/eco/chains";
-import { createWorker } from "@b/utils/cron";
-import { verifyPendingTransactions } from "../PendingVerification";
 import {
   initializeWebSocketProvider,
   initializeHttpProvider,
@@ -196,17 +194,6 @@ export class EVMDeposits implements IDepositMonitor {
           processedTokenTxs.set(log.transactionHash, Date.now());
           console.log(`Processed token deposit ${log.transactionHash}`);
           
-          const testing = 
-          //if (!success && !workerInitialized) {
-            await createWorker(
-              "verifyPendingTransactions",
-              verifyPendingTransactions,
-              10000
-            );
-
-            console.log(testing);
-            console.log("Verification worker started");
-            workerInitialized = true;
         }
       } catch (error) {
         console.error(
