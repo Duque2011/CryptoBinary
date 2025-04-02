@@ -2,7 +2,7 @@
 import { IDepositMonitor } from "./IDepositMonitor";
 import { getEcosystemToken } from "@b/utils/eco/tokens";
 import { fetchEcosystemTransactions } from "@b/utils/eco/transactions";
-import { chainConfigs, getTimestampInSeconds } from "@b/utils/eco/chains";
+import { chainConfigs } from "@b/utils/eco/chains";
 import {
   initializeWebSocketProvider,
   initializeHttpProvider,
@@ -11,7 +11,6 @@ import {
 import { ethers } from "ethers";
 import { processTransaction, createTransactionDetails } from "../DepositUtils";
 import { storeAndBroadcastTransaction } from "@b/utils/eco/redis/deposit";
-import { timeStamp } from "console";
 
 interface EVMOptions {
   wallet: walletAttributes;
@@ -164,11 +163,18 @@ export class EVMDeposits implements IDepositMonitor {
 
     // Map to track processed token deposits: txHash => timestamp (ms)
     const processedTokenTxs: Map<string, number> = new Map();
-    const PROCESSING_EXPIRY_MS = 10 * 60 * 1000; // 10 minutes
+    const PROCESSING_EXPIRY_MS = 30 * 60 * 1000; // 30 minutes
 
     const cleanupProcessedTokenTxs = () => {
       const now = Date.now();
+      const date = new Date(now);
+      console.log("Data atual:", date.toLocaleDateString(), date.toLocaleTimeString());
+      
+      console.log('acima tem a data atual');
+      
       for (const [txHash, timestamp] of processedTokenTxs.entries()) {
+        console.log(now - timestamp > PROCESSING_EXPIRY_MS);
+        console.log('acima tem o resultado do tempo');
         if (now - timestamp > PROCESSING_EXPIRY_MS) {
           processedTokenTxs.delete(txHash);
         }
@@ -177,7 +183,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save interval ID for cleanup of processed token txs
     this.tokenCleanupIntervalId = setInterval(
       cleanupProcessedTokenTxs,
-      5 * 60 * 1000
+      60 * 1000
     );
 
     // Define and store the event listener for token transfers
