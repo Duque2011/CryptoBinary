@@ -95,11 +95,13 @@ export default async (data: Handler, message) => {
 
   if (isMainThread && !workerInitialized) {
     console.log('entrei na funcão');
-    await createWorker(
+    console.log(
+      await createWorker(
       "verifyPendingTransactions",
       verifyPendingTransactions,
       10000
-    );
+    ));
+    return;
     console.log("Verification worker started");
     workerInitialized = false;
   }
