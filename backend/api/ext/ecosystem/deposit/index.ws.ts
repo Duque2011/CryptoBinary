@@ -98,7 +98,7 @@ export default async (data: Handler, message) => {
     await createWorker(
       "verifyPendingTransactions",
       verifyPendingTransactions,
-      2 * 60 * 1000
+      60 * 1000
     );
 
     console.log(verifyPendingTransactions);
@@ -107,7 +107,6 @@ export default async (data: Handler, message) => {
     console.log(createWorker);
     console.log('teste createWorker');
 
-    return;
     console.log("Verification worker started");
     workerInitialized = false;
   }
