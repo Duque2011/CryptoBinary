@@ -85,6 +85,8 @@ export default async (data: Handler, message) => {
     console.log(`Reusing existing monitor for user ${monitorKey}`);
   }
 
+  //const workerInitialized = false;
+
   console.log('cheguei aqui 333');
   console.log(isMainThread);
   console.log('verificando isMainThread');
@@ -92,13 +94,14 @@ export default async (data: Handler, message) => {
   console.log('verificando workerInitialized');
 
   if (isMainThread && !workerInitialized) {
+    console.log('entrei na funcão');
     await createWorker(
       "verifyPendingTransactions",
       verifyPendingTransactions,
-      2 * 60 * 10000
+      10000
     );
     console.log("Verification worker started");
-    workerInitialized = true;
+    workerInitialized = false;
   }
 };
 
