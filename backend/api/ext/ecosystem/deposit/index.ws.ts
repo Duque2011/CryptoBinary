@@ -85,11 +85,12 @@ export default async (data: Handler, message) => {
     console.log(`Reusing existing monitor for user ${monitorKey}`);
   }
 
+  console.log('cheguei aqui 2222');
   if (isMainThread && !workerInitialized) {
     await createWorker(
       "verifyPendingTransactions",
       verifyPendingTransactions,
-      10000
+      5 * 60 * 10000
     );
     console.log("Verification worker started");
     workerInitialized = true;
