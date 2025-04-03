@@ -152,6 +152,7 @@ export async function verifyPendingTransactions() {
                 }
               );
 
+              console.log('cheguei aqui');
               if (txDetails.contractType === "NO_PERMIT") {
                 unlockAddress(txDetails.to);
               }
