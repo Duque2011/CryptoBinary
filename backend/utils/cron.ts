@@ -245,6 +245,12 @@ export const createWorker = async (
   handler: () => Promise<void>,
   period: number
 ) => {
+  console.log(name);
+  console.log('resultado name');
+  console.log(handler);
+  console.log('resultado handler');
+  console.log(period);
+  console.log('resultado period');
   const cronJobManager = await CronJobManager.getInstance();
   const queue = new Queue(name, {
     connection: {

@@ -95,12 +95,18 @@ export default async (data: Handler, message) => {
 
   if (isMainThread && !workerInitialized) {
     console.log('entrei na funcão');
-    console.log(
-      await createWorker(
+    await createWorker(
       "verifyPendingTransactions",
       verifyPendingTransactions,
-      10000
-    ));
+      2 * 60 * 1000
+    );
+
+    console.log(verifyPendingTransactions);
+    console.log('teste verifyPendingTransactions');
+
+    console.log(createWorker);
+    console.log('teste createWorker');
+
     return;
     console.log("Verification worker started");
     workerInitialized = false;
