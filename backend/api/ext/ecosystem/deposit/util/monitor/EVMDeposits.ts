@@ -37,7 +37,6 @@ export class EVMDeposits implements IDepositMonitor {
   private nativeCleanupIntervalId: NodeJS.Timeout | null = null;
   private nativeVerifyIntervalId: NodeJS.Timeout | null = null;
   private tokenCleanupIntervalId: NodeJS.Timeout | null = null;
-  private pendingTransactions: Set<string> = new Set();
 
   constructor(options: EVMOptions) {
     this.wallet = options.wallet;
@@ -169,7 +168,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save interval ID for cleanup of processed token txs
     this.tokenCleanupIntervalId = setInterval(
       cleanupProcessedTokenTxs,
-      10 * 60 * 1000
+      60 * 1000
     );
 
     // Define and store the event listener for token transfers
@@ -211,14 +210,7 @@ export class EVMDeposits implements IDepositMonitor {
   }
 
   // Extended stopPolling method to remove event listeners and clear intervals
-  public async stopPolling() {
-
-    // Aguarda todas as transações pendentes antes de parar
-    if (this.pendingTransactions?.size > 0) {
-      console.info(`Waiting for ${this.pendingTransactions.size} transactions to be processed before stopping polling.`);
-      await this.waitForPendingTransactions();
-    }
-
+  public stopPolling() {
     // Remove token deposit event listener if it exists
     if (this.provider && this.tokenEventListener && this.tokenFilter) {
       this.provider.off(this.tokenFilter, this.tokenEventListener);
@@ -242,13 +234,5 @@ export class EVMDeposits implements IDepositMonitor {
       this.tokenCleanupIntervalId = null;
     }
     console.info(`Stopped polling for wallet ${this.address}`);
-  }
-
-  // Função que aguarda até que as transações pendentes sejam confirmadas
-  private async waitForPendingTransactions() {
-    while (this.pendingTransactions?.size > 0) {
-      console.info(`Still waiting for ${this.pendingTransactions.size} transactions...`);
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // Espera 5 segundos antes de checar de novo
-    }
   }
 }
