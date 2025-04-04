@@ -70,7 +70,6 @@ export async function verifyPendingTransactions() {
           } else {
             // EVM-compatible chain verification
             let provider = chainProviders.get(chain);
-            
             if (!provider) {
               provider = await initializeWebSocketProvider(chain);
               if (!provider) {
@@ -85,14 +84,12 @@ export async function verifyPendingTransactions() {
 
             try {
               const receipt = await provider.getTransactionReceipt(txHash);
-              
               if (!receipt) {
                 console.log(`Transaction ${txHash} not yet confirmed.`);
                 return; // Keep in pending state
               }
 
               isConfirmed = receipt.status === 1;
-
               updatedTxDetails = {
                 ...txDetails,
                 gasUsed: receipt.gasUsed.toString(),
@@ -107,10 +104,8 @@ export async function verifyPendingTransactions() {
           }
 
           if (isConfirmed && updatedTxDetails) {
-            
             try {
               const response = await handleEcosystemDeposit(updatedTxDetails);
-
               if (!response.transaction) {
                 console.log(
                   `Transaction ${txHash} already processed or invalid. Removing.`
@@ -152,7 +147,6 @@ export async function verifyPendingTransactions() {
                 }
               );
 
-              console.log('cheguei aqui');
               if (txDetails.contractType === "NO_PERMIT") {
                 unlockAddress(txDetails.to);
               }
@@ -165,8 +159,6 @@ export async function verifyPendingTransactions() {
                   type: "ACTIVITY",
                 });
               }
-
-              
 
               delete pendingTransactions[txHash];
               await offloadToRedis("pendingTransactions", pendingTransactions);

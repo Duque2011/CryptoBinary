@@ -12,7 +12,6 @@ import { ethers } from "ethers";
 import { processTransaction, createTransactionDetails } from "../DepositUtils";
 import { storeAndBroadcastTransaction } from "@b/utils/eco/redis/deposit";
 
-let workerInitialized = false;
 interface EVMOptions {
   wallet: walletAttributes;
   chain: string;
@@ -48,7 +47,7 @@ export class EVMDeposits implements IDepositMonitor {
 
   public async watchDeposits(): Promise<void> {
     let provider = chainProviders.get(this.chain);
-    
+
     if (!provider) {
       provider = await initializeWebSocketProvider(this.chain);
       if (!provider) {
@@ -56,12 +55,11 @@ export class EVMDeposits implements IDepositMonitor {
       }
       if (!provider) return;
     }
-    
     // Store provider reference for later cleanup
     this.provider = provider;
 
     const feeDecimals = chainConfigs[this.chain].decimals;
-    
+
     if (this.contractType === "NATIVE") {
       await this.watchNativeDeposits(provider, feeDecimals);
     } else {
@@ -136,7 +134,6 @@ export class EVMDeposits implements IDepositMonitor {
 
   private async watchTokenDeposits(provider: any, feeDecimals: number) {
     const token = await getEcosystemToken(this.chain, this.currency);
-    
     if (!token) {
       console.error(`Token ${this.currency} not found`);
       return;
@@ -187,13 +184,9 @@ export class EVMDeposits implements IDepositMonitor {
           feeDecimals,
           this.wallet.id
         );
-
-        console.log(`Transaction processing result: ${success ? 'Success' : 'Failed'}`);
-        
         if (success) {
           processedTokenTxs.set(log.transactionHash, Date.now());
           console.log(`Processed token deposit ${log.transactionHash}`);
-          
         }
       } catch (error) {
         console.error(
