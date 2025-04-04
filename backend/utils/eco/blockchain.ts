@@ -1,4 +1,4 @@
-import { BigNumber } from "bignumber.js";
+import BigNumber from "bignumber.js";
 import { RedisSingleton } from "../redis";
 import { models } from "@b/db";
 import { logError } from "@b/utils/logger";
