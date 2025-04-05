@@ -68,6 +68,7 @@ export async function verifyPendingTransactions() {
               status: isConfirmed ? "COMPLETED" : "PENDING",
             };
           } else {
+            console.log('chegamos nas EVM');
             // EVM-compatible chain verification
             let provider = chainProviders.get(chain);
             if (!provider) {
