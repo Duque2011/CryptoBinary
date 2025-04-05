@@ -225,6 +225,7 @@ export class EVMDeposits implements IDepositMonitor {
         if (success) {
           processedTokenTxs.set(log.transactionHash, Date.now());
           console.log(`Processed token deposit ${log.transactionHash}`);
+          provider.on(this.tokenFilter, this.tokenEventListener);
         }
       } catch (error) {
         console.error(
