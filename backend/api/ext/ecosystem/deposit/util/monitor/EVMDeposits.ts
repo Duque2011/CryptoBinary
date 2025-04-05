@@ -51,11 +51,33 @@ export class EVMDeposits implements IDepositMonitor {
 
     if (!provider) {
       provider = await initializeWebSocketProvider(this.chain);
+      if (provider) {
+        try {
+          await provider.getBlockNumber(); // Testa conexão WebSocket
+          console.log(`[${this.chain}] WebSocket provider conectado com sucesso`);
+        } catch (err) {
+          console.warn(`[${this.chain}] WebSocket falhou no teste. Tentando fallback para HTTP...`);
+          provider = await initializeHttpProvider(this.chain);
+        }
+      }
+    
+      if (!provider) {
+        console.error(`[${this.chain}] Nenhum provider pôde ser inicializado`);
+        return;
+      }
+    }
+    
+    
+    /*
+    if (!provider) {
+      provider = await initializeWebSocketProvider(this.chain);
       if (!provider) {
         provider = await initializeHttpProvider(this.chain);
       }
       if (!provider) return;
     }
+    */
+
     // Store provider reference for later cleanup
     this.provider = provider;
 
