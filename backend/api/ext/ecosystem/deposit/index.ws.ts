@@ -21,6 +21,8 @@ export const metadata = {};
 export default async (data: Handler, message) => {
   const { user } = data;
 
+  console.log('verificando se chega até aqui');
+
   if (!user?.id) throw createError(401, "Unauthorized");
   if (typeof message === "string") {
     try {
@@ -58,6 +60,11 @@ export default async (data: Handler, message) => {
 
   const monitorKey = user.id;
 
+  console.log('verificando contractType = ', contractType);
+  console.log('verificando monitorStopTimeouts = ', monitorStopTimeouts);
+  console.log('verificando monitorKey = ', monitorKey);
+  console.log('verificando finalAddress = ', finalAddress);
+
   // Clear any pending stop timeouts since the user reconnected
   if (monitorStopTimeouts.has(monitorKey)) {
     clearTimeout(monitorStopTimeouts.get(monitorKey));
@@ -86,6 +93,7 @@ export default async (data: Handler, message) => {
   }
 
   if (isMainThread && !workerInitialized) {
+    console.log('entrei na funcão');
     await createWorker(
       "verifyPendingTransactions",
       verifyPendingTransactions,
