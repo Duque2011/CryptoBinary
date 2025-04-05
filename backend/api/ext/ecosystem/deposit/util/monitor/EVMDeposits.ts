@@ -46,6 +46,7 @@ export class EVMDeposits implements IDepositMonitor {
   }
 
   public async watchDeposits(): Promise<void> {
+    console.log(`[watchDeposits] Iniciando monitoramento da carteira ${this.address} na chain ${this.chain}`);
     let provider = chainProviders.get(this.chain);
 
     if (!provider) {

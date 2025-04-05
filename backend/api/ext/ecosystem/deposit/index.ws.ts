@@ -70,13 +70,12 @@ export default async (data: Handler, message) => {
   const forceCreate = contractType === "NO_PERMIT";
   let monitor = monitorInstances.get(monitorKey);
 
-  console.log('verificar o que tem em monitor = ', monitor);
   if (forceCreate || !monitor) {
     if (monitor && typeof monitor.stopPolling === "function") {
       monitor.stopPolling();
       monitorInstances.delete(monitorKey);
     }
-    console.log('antes de criar o novo monitor');
+    
     monitor = createMonitor(chain, {
       wallet,
       chain,
@@ -84,6 +83,7 @@ export default async (data: Handler, message) => {
       address: finalAddress,
       contractType,
     });
+    console.log('Iniciando monitoramento de depósitos para user ${monitorKey} na chain ${chain}...');
     await monitor.watchDeposits();
     monitorInstances.set(monitorKey, monitor);
   } else {
