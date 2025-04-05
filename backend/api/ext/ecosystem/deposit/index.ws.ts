@@ -21,8 +21,6 @@ export const metadata = {};
 export default async (data: Handler, message) => {
   const { user } = data;
 
-  console.log('verificando se chega até aqui');
-
   if (!user?.id) throw createError(401, "Unauthorized");
   if (typeof message === "string") {
     try {
@@ -60,11 +58,9 @@ export default async (data: Handler, message) => {
 
   const monitorKey = user.id;
 
-  console.log('verificando contractType = ', contractType);
   console.log('verificando monitorStopTimeouts = ', monitorStopTimeouts);
   console.log('verificando monitorKey = ', monitorKey);
-  console.log('verificando finalAddress = ', finalAddress);
-
+  
   // Clear any pending stop timeouts since the user reconnected
   if (monitorStopTimeouts.has(monitorKey)) {
     clearTimeout(monitorStopTimeouts.get(monitorKey));
@@ -74,11 +70,13 @@ export default async (data: Handler, message) => {
   const forceCreate = contractType === "NO_PERMIT";
   let monitor = monitorInstances.get(monitorKey);
 
+  console.log('verificar o que tem em monitor = ', monitor);
   if (forceCreate || !monitor) {
     if (monitor && typeof monitor.stopPolling === "function") {
       monitor.stopPolling();
       monitorInstances.delete(monitorKey);
     }
+    console.log('antes de criar o novo monitor');
     monitor = createMonitor(chain, {
       wallet,
       chain,
@@ -93,7 +91,6 @@ export default async (data: Handler, message) => {
   }
 
   if (isMainThread && !workerInitialized) {
-    console.log('entrei na funcão');
     await createWorker(
       "verifyPendingTransactions",
       verifyPendingTransactions,
@@ -105,6 +102,7 @@ export default async (data: Handler, message) => {
 };
 
 function createMonitor(chain: string, options: any) {
+  console.log('entrei na segunda funcão');
   const { wallet, currency, address, contractType } = options;
 
   if (["BTC", "LTC", "DOGE", "DASH"].includes(chain)) {
