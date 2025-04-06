@@ -73,9 +73,13 @@ export async function verifyPendingTransactions() {
             let provider = chainProviders.get(chain);
             console.log(provider);
             if (!provider) {
+              console.log('inicia websocket');
               provider = await initializeWebSocketProvider(chain);
+              console.log(provider);
               if (!provider) {
+                console.log('inicia http');
                 provider = await initializeHttpProvider(chain);
+                console.log(provider);
               }
             }
 
