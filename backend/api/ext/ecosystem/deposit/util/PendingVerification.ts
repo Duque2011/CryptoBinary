@@ -71,6 +71,7 @@ export async function verifyPendingTransactions() {
             console.log('chegamos nas EVM');
             // EVM-compatible chain verification
             let provider = chainProviders.get(chain);
+            console.log(provider);
             if (!provider) {
               provider = await initializeWebSocketProvider(chain);
               if (!provider) {
