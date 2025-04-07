@@ -8,8 +8,6 @@ import { logError } from "@b/utils/logger";
 import { routeCache } from "./Routes";
 
 const clients = new Map();
-//Map<string, Map<string, { ws: any; subscriptions: Set<string> }>>
-
 
 export async function handleWsMethod(app, routePath, entryPath) {
   let handler, metadata, onClose;
@@ -255,7 +253,6 @@ export const sendMessageToRoute = (route, payload, data) => {
   }
 };
 
-/*
 export const sendMessageToRouteClients = (route, data) => {
   const message = JSON.stringify(data);
   if (clients.has(route)) {
@@ -271,34 +268,6 @@ export const sendMessageToRouteClients = (route, data) => {
     });
   }
 };
-*/
-
-export const sendMessageToRouteClients = (route, message, isBinary = false) => {
-  if (clients.has(route)) {
-    const routeClients = clients.get(route);
-
-    for (const [clientId, clientDetails] of routeClients.entries()) {
-      try {
-        clientDetails.ws.cork(() => {
-          if (isBinary) {
-            const bufferMessage = Buffer.from(JSON.stringify(message));
-            clientDetails.ws.send(bufferMessage, true);
-          } else {
-            clientDetails.ws.send(JSON.stringify(message));
-          }
-        });
-      } catch (error) {
-        logError("websocket", error, route);
-        routeClients.delete(clientId); // remove diretamente no catch
-      }
-    }
-  } else {
-    console.error(`Rota ${route} não encontrada`);
-  }
-};
-
-
-
 
 export const getClients = () => clients;
 export const hasClients = (route) => clients.has(route);
