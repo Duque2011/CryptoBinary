@@ -12,10 +12,10 @@ import {
 } from "./ProviderManager";
 
 export async function verifyPendingTransactions() {
-  if (!hasClients(`/api/ext/ecosystem/deposit`)) {
-    console.log('ninguém conectado');
-    return;
-  }
+  //if (!hasClients(`/api/ext/ecosystem/deposit`)) {
+  //  console.log('ninguém conectado');
+  //  return;
+  //}
 
   const processingTransactions = new Set();
 
@@ -139,27 +139,30 @@ export async function verifyPendingTransactions() {
                     ? txDetails.to
                     : txDetails.address.toLowerCase();
 
-              sendMessageToRoute(
-                "/api/ext/ecosystem/deposit",
-                {
-                  currency: response.wallet?.currency,
-                  chain,
-                  address,
-                },
-                {
-                  stream: "verification",
-                  data: {
-                    status: 200,
-                    message: "Transaction completed",
-                    ...response,
-                    trx: updatedTxDetails,
-                    balance: response.wallet?.balance,
+              if (!hasClients(`/api/ext/ecosystem/deposit`)) {
+                      
+                sendMessageToRoute(
+                  "/api/ext/ecosystem/deposit",
+                  {
                     currency: response.wallet?.currency,
                     chain,
-                    method: "Wallet Deposit",
+                    address,
                   },
-                }
-              );
+                  {
+                    stream: "verification",
+                    data: {
+                      status: 200,
+                      message: "Transaction completed",
+                      ...response,
+                      trx: updatedTxDetails,
+                      balance: response.wallet?.balance,
+                      currency: response.wallet?.currency,
+                      chain,
+                      method: "Wallet Deposit",
+                    },
+                  }
+                );
+              }
 
               if (txDetails.contractType === "NO_PERMIT") {
                 unlockAddress(txDetails.to);
