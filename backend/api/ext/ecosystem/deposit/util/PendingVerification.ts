@@ -139,6 +139,8 @@ export async function verifyPendingTransactions() {
                     ? txDetails.to
                     : txDetails.address.toLowerCase();
 
+              console.log('verificar o hasclients');
+              console.log(hasClients(`/api/ext/ecosystem/deposit`)); 
               if (!hasClients(`/api/ext/ecosystem/deposit`)) {
                       
                 sendMessageToRoute(
