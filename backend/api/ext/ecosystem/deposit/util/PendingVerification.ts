@@ -90,6 +90,8 @@ export async function verifyPendingTransactions() {
 
             try {
               const receipt = await provider.getTransactionReceipt(txHash);
+              console.log('vamos ver o receipt');
+              console.log(receipt);
               if (!receipt) {
                 console.log(`Transaction ${txHash} not yet confirmed.`);
                 return; // Keep in pending state
