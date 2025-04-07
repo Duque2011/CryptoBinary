@@ -24,6 +24,9 @@ export async function verifyPendingTransactions() {
 
     console.log('verificando se tem algo pendente');
     console.log(pendingTransactions);
+    setInterval(() => {
+      console.log("📡 Tem clientes?", hasClients("/api/ext/ecosystem/deposit"));
+    }, 5000); // a cada 5 segundos
     if (!pendingTransactions || Object.keys(pendingTransactions).length === 0) {
       console.log('entrei nessa funcão');
       return;
