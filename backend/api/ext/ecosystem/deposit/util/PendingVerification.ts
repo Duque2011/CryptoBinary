@@ -21,7 +21,10 @@ export async function verifyPendingTransactions() {
   try {
     const pendingTransactions = await loadFromRedis("pendingTransactions");
 
+    console.log('verificando se tem algo pendente');
+    console.log(pendingTransactions);
     if (!pendingTransactions || Object.keys(pendingTransactions).length === 0) {
+      console.log('entrei nessa funcão');
       return;
     }
 
@@ -34,6 +37,8 @@ export async function verifyPendingTransactions() {
       chunks.push(txHashes.slice(i, i + concurrency));
     }
 
+    console.log('antes do if com chunk');
+    console.log(chunks);
     for (const chunk of chunks) {
       const verificationPromises = chunk.map(async (txHash) => {
         if (processingTransactions.has(txHash)) {
