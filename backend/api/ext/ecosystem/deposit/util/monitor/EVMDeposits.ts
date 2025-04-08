@@ -243,7 +243,7 @@ export class EVMDeposits implements IDepositMonitor {
 
   // Extended stopPolling method to remove event listeners and clear intervals
   public stopPolling() {
-    console.log(`verificar provider = ${this.provider}`);
+    
     // Remove token deposit event listener if it exists
     if (this.provider && this.tokenEventListener && this.tokenFilter) {
       this.provider.off(this.tokenFilter, this.tokenEventListener);

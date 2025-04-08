@@ -18,13 +18,11 @@ export async function verifyPendingTransactions() {
     return;
   }
   */
-  console.log('passei pelo if anterior');
   const processingTransactions = new Set();
   
   //try {
   const pendingTransactions = await loadFromRedis("pendingTransactions");
-  console.log('ver o que tem em pendingTransactions');
-  console.log(pendingTransactions);
+  
   if (!pendingTransactions || Object.keys(pendingTransactions).length === 0) {
     return;
   }
@@ -32,7 +30,7 @@ export async function verifyPendingTransactions() {
   const txHashes = Object.keys(pendingTransactions);
 
   // Limit concurrency for large batch of txs
-  const concurrency = 10;
+  const concurrency = 5;
   const chunks: string[][] = [];
   for (let i = 0; i < txHashes.length; i += concurrency) {
     chunks.push(txHashes.slice(i, i + concurrency));
