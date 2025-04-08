@@ -13,9 +13,10 @@ import {
 
 export async function verifyPendingTransactions() {
   if (!hasClients(`/api/ext/ecosystem/deposit`)) {
+    console.log('ninguém conectado');
     return;
   }
-
+  console.log('passei pelo if anterior');
   const processingTransactions = new Set();
 
   try {
