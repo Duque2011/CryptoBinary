@@ -12,12 +12,12 @@ import {
 } from "./ProviderManager";
 
 export async function verifyPendingTransactions() {
-  /*
+  
   if (!hasClients(`/api/ext/ecosystem/deposit`)) {
     console.log('ninguém conectado');
     return;
   }
-  */
+  
   const processingTransactions = new Set();
   
   //try {
