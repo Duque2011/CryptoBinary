@@ -13,7 +13,6 @@ import {
 
 export async function verifyPendingTransactions() {
   if (!hasClients(`/api/ext/ecosystem/deposit`)) {
-    console.log('ninguém conectado');
     return;
   }
 
@@ -23,7 +22,6 @@ export async function verifyPendingTransactions() {
     const pendingTransactions = await loadFromRedis("pendingTransactions");
 
     if (!pendingTransactions || Object.keys(pendingTransactions).length === 0) {
-      console.log('entrei nessa funcão');
       return;
     }
 
@@ -36,8 +34,6 @@ export async function verifyPendingTransactions() {
       chunks.push(txHashes.slice(i, i + concurrency));
     }
 
-    console.log('antes do if com chunk');
-    console.log(chunks);
     for (const chunk of chunks) {
       const verificationPromises = chunk.map(async (txHash) => {
         if (processingTransactions.has(txHash)) {
@@ -72,18 +68,12 @@ export async function verifyPendingTransactions() {
               status: isConfirmed ? "COMPLETED" : "PENDING",
             };
           } else {
-            console.log('chegamos nas EVM');
             // EVM-compatible chain verification
             let provider = chainProviders.get(chain);
-            console.log(provider);
             if (!provider) {
-              console.log('inicia websocket');
               provider = await initializeWebSocketProvider(chain);
-              console.log(provider);
               if (!provider) {
-                console.log('inicia http');
                 provider = await initializeHttpProvider(chain);
-                console.log(provider);
               }
             }
 
@@ -94,8 +84,6 @@ export async function verifyPendingTransactions() {
 
             try {
               const receipt = await provider.getTransactionReceipt(txHash);
-              console.log('vamos ver o receipt');
-              console.log(receipt);
               if (!receipt) {
                 console.log(`Transaction ${txHash} not yet confirmed.`);
                 return; // Keep in pending state
@@ -158,7 +146,6 @@ export async function verifyPendingTransactions() {
                   },
                 }
               );
-            
 
               if (txDetails.contractType === "NO_PERMIT") {
                 unlockAddress(txDetails.to);

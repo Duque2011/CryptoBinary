@@ -57,9 +57,6 @@ export default async (data: Handler, message) => {
     contractType === "NO_PERMIT" ? address : walletChain.address;
 
   const monitorKey = user.id;
-
-  console.log('verificando monitorStopTimeouts = ', monitorStopTimeouts);
-  console.log('verificando monitorKey = ', monitorKey);
   
   // Clear any pending stop timeouts since the user reconnected
   if (monitorStopTimeouts.has(monitorKey)) {
