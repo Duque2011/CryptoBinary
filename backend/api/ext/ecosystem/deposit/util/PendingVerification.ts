@@ -20,7 +20,7 @@ export async function verifyPendingTransactions() {
   */
   console.log('passei pelo if anterior');
   const processingTransactions = new Set();
-
+  console.log(processingTransactions);
   //try {
   const pendingTransactions = await loadFromRedis("pendingTransactions");
 
@@ -31,7 +31,7 @@ export async function verifyPendingTransactions() {
   const txHashes = Object.keys(pendingTransactions);
 
   // Limit concurrency for large batch of txs
-  const concurrency = 5;
+  const concurrency = 10;
   const chunks: string[][] = [];
   for (let i = 0; i < txHashes.length; i += concurrency) {
     chunks.push(txHashes.slice(i, i + concurrency));
