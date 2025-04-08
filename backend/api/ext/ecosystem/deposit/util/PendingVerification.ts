@@ -20,10 +20,11 @@ export async function verifyPendingTransactions() {
   */
   console.log('passei pelo if anterior');
   const processingTransactions = new Set();
-  console.log(processingTransactions);
+  
   //try {
   const pendingTransactions = await loadFromRedis("pendingTransactions");
-
+  console.log('ver o que tem em pendingTransactions');
+  console.log(pendingTransactions);
   if (!pendingTransactions || Object.keys(pendingTransactions).length === 0) {
     return;
   }
@@ -154,6 +155,8 @@ export async function verifyPendingTransactions() {
 
             if (txDetails.contractType === "NO_PERMIT") {
               unlockAddress(txDetails.to);
+              console.log('finalizar a funcão');
+              return;
             }
 
             if (response.wallet?.userId) {
