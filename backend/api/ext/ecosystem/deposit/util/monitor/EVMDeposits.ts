@@ -50,6 +50,7 @@ export class EVMDeposits implements IDepositMonitor {
     let provider = chainProviders.get(this.chain);
 
     // Verifica se o provider existe e está funcional
+    /*
     if (provider) {
       try {
         await provider.getBlockNumber();
@@ -80,9 +81,8 @@ export class EVMDeposits implements IDepositMonitor {
       // Salva o provider funcional no cache
       chainProviders.set(this.chain, provider);
     }
+    */
     
-    
-    /*
     if (!provider) {
       provider = await initializeWebSocketProvider(this.chain);
       if (!provider) {
@@ -90,7 +90,6 @@ export class EVMDeposits implements IDepositMonitor {
       }
       if (!provider) return;
     }
-    */
 
     // Store provider reference for later cleanup
     this.provider = provider;
@@ -203,7 +202,7 @@ export class EVMDeposits implements IDepositMonitor {
     // Save interval ID for cleanup of processed token txs
     this.tokenCleanupIntervalId = setInterval(
       cleanupProcessedTokenTxs,
-      10 * 60 * 1000
+      60 * 1000
     );
 
     // Define and store the event listener for token transfers
@@ -245,8 +244,6 @@ export class EVMDeposits implements IDepositMonitor {
   // Extended stopPolling method to remove event listeners and clear intervals
   public stopPolling() {
     console.log(`verificar provider = ${this.provider}`);
-    console.log(`verificar provider = ${this.tokenEventListener}`);
-    console.log(`verificar provider = ${this.tokenFilter}`);
     // Remove token deposit event listener if it exists
     if (this.provider && this.tokenEventListener && this.tokenFilter) {
       this.provider.off(this.tokenFilter, this.tokenEventListener);

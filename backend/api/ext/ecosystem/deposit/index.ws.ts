@@ -60,6 +60,7 @@ export default async (data: Handler, message) => {
   
   // Clear any pending stop timeouts since the user reconnected
   if (monitorStopTimeouts.has(monitorKey)) {
+    console.log('monitorStopTimeouts sendo ativado');
     clearTimeout(monitorStopTimeouts.get(monitorKey));
     monitorStopTimeouts.delete(monitorKey);
   }
@@ -69,6 +70,7 @@ export default async (data: Handler, message) => {
 
   if (forceCreate || !monitor) {
     if (monitor && typeof monitor.stopPolling === "function") {
+      console.log('forceCreate sendo ativado');
       monitor.stopPolling();
       monitorInstances.delete(monitorKey);
     }
