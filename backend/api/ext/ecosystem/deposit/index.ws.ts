@@ -136,7 +136,7 @@ export const onClose = async (ws, route, clientId) => {
         monitorStopTimeouts.delete(clientId);
         monitorInstances.delete(clientId);
       },
-      10 * 60 * 1000
+      1000
     );
 
     monitorStopTimeouts.set(clientId, timeoutId);
