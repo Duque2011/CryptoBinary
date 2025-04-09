@@ -15,11 +15,6 @@ export async function verifyPendingTransactions() {
   
   if (!hasClients(`/api/ext/ecosystem/deposit`)) {
     console.log('ninguém conectado');
-    // Adiciona contagem regressiva antes de retornar
-    for (let i = 3; i > 0; i--) {
-      console.log(`Retornando em ${i} segundo${i > 1 ? 's' : ''}...`);
-      await new Promise(resolve => setTimeout(resolve, 60000));
-    }
     return;
   }
   
@@ -200,4 +195,7 @@ export async function verifyPendingTransactions() {
   } catch (error) {
     console.error(`Error in verifyPendingTransactions: ${error.message}`);
   }
+
+  // Aguarda 10 minutos antes de permitir nova execução
+  //await new Promise((resolve) => setTimeout(resolve, 10 * 60 * 1000));
 }
