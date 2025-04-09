@@ -48,40 +48,6 @@ export class EVMDeposits implements IDepositMonitor {
   public async watchDeposits(): Promise<void> {
     console.log(`[watchDeposits] Iniciando monitoramento da carteira ${this.address} na chain ${this.chain}`);
     let provider = chainProviders.get(this.chain);
-
-    // Verifica se o provider existe e está funcional
-    /*
-    if (provider) {
-      try {
-        await provider.getBlockNumber();
-        console.log(`[${this.chain}] Provider já existente está funcional.`);
-      } catch (err) {
-        console.warn(`[${this.chain}] Provider existente falhou no teste. Recriando...`);
-        provider = null; // Força a criação de um novo provider
-      }
-    }
-
-    if (!provider) {
-      provider = await initializeWebSocketProvider(this.chain);
-      if (provider) {
-        try {
-          await provider.getBlockNumber();
-          console.log(`[${this.chain}] WebSocket provider conectado com sucesso`);
-        } catch (err) {
-          console.warn(`[${this.chain}] WebSocket falhou. Tentando HTTP...`);
-          provider = await initializeHttpProvider(this.chain);
-        }
-      }
-
-      if (!provider) {
-        console.error(`[${this.chain}] Nenhum provider pôde ser inicializado`);
-        return;
-      }
-
-      // Salva o provider funcional no cache
-      chainProviders.set(this.chain, provider);
-    }
-    */
     
     if (!provider) {
       provider = await initializeWebSocketProvider(this.chain);
