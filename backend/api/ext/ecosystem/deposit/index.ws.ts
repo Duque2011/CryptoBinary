@@ -69,6 +69,7 @@ export default async (data: Handler, message) => {
 
   if (forceCreate || !monitor) {
     if (monitor && typeof monitor.stopPolling === "function") {
+      console.log('vou chamar o stopPolling');
       monitor.stopPolling();
       monitorInstances.delete(monitorKey);
     }
@@ -134,6 +135,7 @@ export const onClose = async (ws, route, clientId) => {
     // Schedule stopPolling after 10 minutes if the user doesn't reconnect
     const timeoutId = setTimeout(
       () => {
+        console.log('vou chamar o stopPolling aqui');
         monitor.stopPolling();
         monitorStopTimeouts.delete(clientId);
         monitorInstances.delete(clientId);
