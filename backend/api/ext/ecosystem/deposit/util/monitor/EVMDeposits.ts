@@ -199,7 +199,6 @@ export class EVMDeposits implements IDepositMonitor {
       }
     };
 
-    console.log('uma linha antes do tokenEventListener');
     provider.on(this.tokenFilter, this.tokenEventListener);
 
     provider.on("error", (error) => {
