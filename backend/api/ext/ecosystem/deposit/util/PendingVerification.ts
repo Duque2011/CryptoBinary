@@ -1,7 +1,7 @@
 // PendingVerification.ts
 import { loadFromRedis, offloadToRedis } from "@b/utils/eco/redis/deposit";
 import { handleEcosystemDeposit } from "@b/utils/eco/wallet";
-import { hasClients, sendMessageToRoute } from "@b/handler/Websocket";
+import { hasClients, sendMessageToRoute, sendMessageToRouteClients } from "@b/handler/Websocket";
 import { verifyUTXOTransaction } from "@b/utils/eco/utxo";
 import { handleNotification } from "@b/utils/notifications";
 import { unlockAddress } from "../../wallet/utils";
@@ -11,10 +11,15 @@ import {
   initializeWebSocketProvider,
 } from "./ProviderManager";
 
+// Inicie o ping fora do try, de preferência antes de uma operação assíncrona
+const pingInterval = setInterval(() => {
+  sendMessageToRouteClients("/api/ext/ecosystem/deposit", { type: "ping" });
+}, 60 * 1000); // 60 segundos
+
 export async function verifyPendingTransactions() {
   
   // Aguarda 10 minutos (600.000 milissegundos)
-  //await new Promise((resolve) => setTimeout(resolve, 3 * 60 * 1000));
+  await new Promise((resolve) => setTimeout(resolve, 60 * 1000));
 
   //if (!hasClients(`/api/ext/ecosystem/deposit`)) {
   //  console.log('ninguém conectado');
@@ -91,6 +96,7 @@ export async function verifyPendingTransactions() {
 
             try {
               const receipt = await provider.getTransactionReceipt(txHash);
+
               if (!receipt) {
                 console.log(`Transaction ${txHash} not yet confirmed.`);
                 return; // Keep in pending state
@@ -195,6 +201,9 @@ export async function verifyPendingTransactions() {
     }
   } catch (error) {
     console.error(`Error in verifyPendingTransactions: ${error.message}`);
+  } finally {
+    // Caso o intervalo de ping deva ser limpo após a execução
+    clearInterval(pingInterval);
   }
 
   // Aguarda 10 minutos antes de permitir nova execução
