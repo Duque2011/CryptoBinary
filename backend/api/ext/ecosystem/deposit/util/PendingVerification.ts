@@ -14,7 +14,7 @@ import {
 export async function verifyPendingTransactions() {
   
   // Aguarda 10 minutos (600.000 milissegundos)
-  await new Promise((resolve) => setTimeout(resolve, 60 * 1000));
+  //await new Promise((resolve) => setTimeout(resolve, 60 * 1000));
 
   if (!hasClients(`/api/ext/ecosystem/deposit`)) {
     console.log('ninguém conectado');
