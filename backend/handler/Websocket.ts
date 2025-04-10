@@ -270,11 +270,10 @@ export const sendMessageToRouteClients = (route, data) => {
 };
 
 //Manter conexões ativas com ping a cada 30 segundos
-/*
+
 setInterval(() => {
   sendMessageToRouteClients("/api/ext/ecosystem/deposit", { type: "ping" });
-}, 30000); // 30 segundos
-*/
+}, 30 * 1000); // 30 segundos
 
 export const getClients = () => clients;
 export const hasClients = (route) => clients.has(route);

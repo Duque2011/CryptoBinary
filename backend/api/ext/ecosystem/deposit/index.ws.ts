@@ -94,7 +94,7 @@ export default async (data: Handler, message) => {
     await createWorker(
       "verifyPendingTransactions",
       verifyPendingTransactions,
-      1000
+      3 * 60 * 1000
     );
     console.log("Verification worker started");
     workerInitialized = true;
@@ -140,7 +140,7 @@ export const onClose = async (ws, route, clientId) => {
         monitorStopTimeouts.delete(clientId);
         monitorInstances.delete(clientId);
       },
-      15 * 60 * 1000
+      10 * 60 * 1000
     );
 
     monitorStopTimeouts.set(clientId, timeoutId);
