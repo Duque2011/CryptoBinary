@@ -210,12 +210,6 @@ export class EVMDeposits implements IDepositMonitor {
   public stopPolling() {
     
     // Remove token deposit event listener if it exists
-    console.log('teste final');
-    console.log(this.provider);
-    console.log('teste tokenEventListener');
-    console.log(this.tokenEventListener);
-    console.log('teste tokenFilter');
-    console.log(this.tokenFilter);
     if (this.provider && this.tokenEventListener && this.tokenFilter) {
       this.provider.off(this.tokenFilter, this.tokenEventListener);
       console.info(

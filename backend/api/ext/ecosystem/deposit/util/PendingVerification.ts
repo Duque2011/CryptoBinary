@@ -14,12 +14,12 @@ import {
 // Inicie o ping fora do try, de preferência antes de uma operação assíncrona
 const pingInterval = setInterval(() => {
   sendMessageToRouteClients("/api/ext/ecosystem/deposit", { type: "ping" });
-}, 60 * 1000); // 60 segundos
+}, 30 * 1000); // 60 segundos
 
 export async function verifyPendingTransactions() {
   
   // Aguarda 10 minutos (600.000 milissegundos)
-  await new Promise((resolve) => setTimeout(resolve, 60 * 1000));
+  //await new Promise((resolve) => setTimeout(resolve, 3 * 60 * 1000));
 
   //if (!hasClients(`/api/ext/ecosystem/deposit`)) {
   //  console.log('ninguém conectado');
