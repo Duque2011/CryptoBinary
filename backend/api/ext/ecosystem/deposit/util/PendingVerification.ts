@@ -14,12 +14,12 @@ import {
 export async function verifyPendingTransactions() {
   
   // Aguarda 10 minutos (600.000 milissegundos)
-  //await new Promise((resolve) => setTimeout(resolve, 60 * 1000));
+  await new Promise((resolve) => setTimeout(resolve, 3 * 60 * 1000));
 
-  if (!hasClients(`/api/ext/ecosystem/deposit`)) {
-    console.log('ninguém conectado');
-    return;
-  }
+  //if (!hasClients(`/api/ext/ecosystem/deposit`)) {
+  //  console.log('ninguém conectado');
+  //  return;
+  //}
   
   const processingTransactions = new Set();
   
@@ -156,8 +156,6 @@ export async function verifyPendingTransactions() {
 
               if (txDetails.contractType === "NO_PERMIT") {
                 unlockAddress(txDetails.to);
-                console.log('finalizar a funcão');
-                return;
               }
 
               if (response.wallet?.userId) {

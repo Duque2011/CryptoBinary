@@ -7,7 +7,7 @@ import { handleEcosystemDeposit } from "@b/utils/eco/wallet";
 import { sendMessageToRoute, hasClients } from "@b/handler/Websocket";
 
 const ENABLE_MONITORING = process.env.ENABLE_DEPOSIT_MONITORING === "true";
-const EVM_CHECK_INTERVAL = Number(process.env.EVM_CHECK_INTERVAL_MS) || 300000; // 5 min default
+const EVM_CHECK_INTERVAL = Number(process.env.EVM_CHECK_INTERVAL_MS) || 5 * 60 * 1000; // 5 min default
 const UTXO_CHECK_INTERVAL =
   Number(process.env.UTXO_CHECK_INTERVAL_MS) || 900000; // 15 min default
 const API_THRESHOLD = Number(process.env.API_THRESHOLD) || 100;
