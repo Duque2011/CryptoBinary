@@ -11,14 +11,6 @@ import {
   initializeWebSocketProvider,
 } from "./ProviderManager";
 export async function verifyPendingTransactions() {
-  
-  //await new Promise((resolve) => setTimeout(resolve, 3 * 60 * 1000));
-
-  if (!hasClients(`/api/ext/ecosystem/deposit`)) {
-    console.log('hasClients false');
-    return;
-  }
-  
   const processingTransactions = new Set();
   
   try {
