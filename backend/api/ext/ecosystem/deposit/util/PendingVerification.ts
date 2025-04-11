@@ -10,21 +10,14 @@ import {
   initializeHttpProvider,
   initializeWebSocketProvider,
 } from "./ProviderManager";
-
-// Inicie o ping fora do try, de preferência antes de uma operação assíncrona
-const pingInterval = setInterval(() => {
-  sendMessageToRouteClients("/api/ext/ecosystem/deposit", { type: "ping" });
-}, 30 * 1000); // 60 segundos
-
 export async function verifyPendingTransactions() {
   
-  // Aguarda 10 minutos (600.000 milissegundos)
   //await new Promise((resolve) => setTimeout(resolve, 3 * 60 * 1000));
 
-  //if (!hasClients(`/api/ext/ecosystem/deposit`)) {
-  //  console.log('ninguém conectado');
-  //  return;
-  //}
+  if (!hasClients(`/api/ext/ecosystem/deposit`)) {
+    console.log('hasClients false');
+    return;
+  }
   
   const processingTransactions = new Set();
   
@@ -201,11 +194,6 @@ export async function verifyPendingTransactions() {
     }
   } catch (error) {
     console.error(`Error in verifyPendingTransactions: ${error.message}`);
-  } finally {
-    // Caso o intervalo de ping deva ser limpo após a execução
-    clearInterval(pingInterval);
   }
-
-  // Aguarda 10 minutos antes de permitir nova execução
   //await new Promise((resolve) => setTimeout(resolve, 10 * 60 * 1000));
 }

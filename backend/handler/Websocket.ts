@@ -229,7 +229,6 @@ export const sendMessageToClient = (clientId, message, isBinary = false) => {
   }
 };
 
-
 export const sendMessageToRoute = (route, payload, data) => {
   try {
     const subscription = JSON.stringify(payload);
@@ -268,13 +267,6 @@ export const sendMessageToRouteClients = (route, data) => {
     });
   }
 };
-
-//Manter conexões ativas com ping a cada 30 segundos
-/*
-setInterval(() => {
-  sendMessageToRouteClients("/api/ext/ecosystem/deposit", { type: "ping" });
-}, 30 * 1000); // 30 segundos
-*/
 
 export const getClients = () => clients;
 export const hasClients = (route) => clients.has(route);

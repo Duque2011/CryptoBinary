@@ -135,7 +135,7 @@ export class EVMDeposits implements IDepositMonitor {
   }
 
   private async watchTokenDeposits(provider: any, feeDecimals: number) {
-    console.log('entrei na funcao watchTokenDeposits');
+    console.log('I got here');
     const token = await getEcosystemToken(this.chain, this.currency);
     if (!token) {
       console.error(`Token ${this.currency} not found`);

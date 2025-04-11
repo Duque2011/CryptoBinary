@@ -69,7 +69,6 @@ export default async (data: Handler, message) => {
 
   if (forceCreate || !monitor) {
     if (monitor && typeof monitor.stopPolling === "function") {
-      console.log('vou chamar o stopPolling');
       monitor.stopPolling();
       monitorInstances.delete(monitorKey);
     }
@@ -81,20 +80,17 @@ export default async (data: Handler, message) => {
       address: finalAddress,
       contractType,
     });
-    console.log('Iniciando monitoramento de depósitos para user ${monitorKey} na chain ${chain}...');
     await monitor.watchDeposits();
     monitorInstances.set(monitorKey, monitor);
   } else {
     console.log(`Reusing existing monitor for user ${monitorKey}`);
   }
 
-  console.log(workerInitialized);
-  console.log('o que é workerInitialized?');
   if (isMainThread && !workerInitialized) {
     await createWorker(
       "verifyPendingTransactions",
       verifyPendingTransactions,
-      3 * 60 * 1000
+      1000
     );
     console.log("Verification worker started");
     workerInitialized = true;
@@ -102,7 +98,6 @@ export default async (data: Handler, message) => {
 };
 
 function createMonitor(chain: string, options: any) {
-  console.log('entrei na segunda funcão');
   const { wallet, currency, address, contractType } = options;
 
   if (["BTC", "LTC", "DOGE", "DASH"].includes(chain)) {
@@ -135,12 +130,11 @@ export const onClose = async (ws, route, clientId) => {
     // Schedule stopPolling after 10 minutes if the user doesn't reconnect
     const timeoutId = setTimeout(
       () => {
-        console.log('vou chamar o stopPolling aqui');
         monitor.stopPolling();
         monitorStopTimeouts.delete(clientId);
         monitorInstances.delete(clientId);
       },
-      60 * 1000
+      10 * 60 * 1000
     );
 
     monitorStopTimeouts.set(clientId, timeoutId);
