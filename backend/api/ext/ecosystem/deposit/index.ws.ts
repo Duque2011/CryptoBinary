@@ -57,7 +57,7 @@ export default async (data: Handler, message) => {
     contractType === "NO_PERMIT" ? address : walletChain.address;
 
   const monitorKey = user.id;
-  
+
   // Clear any pending stop timeouts since the user reconnected
   if (monitorStopTimeouts.has(monitorKey)) {
     clearTimeout(monitorStopTimeouts.get(monitorKey));
@@ -72,7 +72,6 @@ export default async (data: Handler, message) => {
       monitor.stopPolling();
       monitorInstances.delete(monitorKey);
     }
-    
     monitor = createMonitor(chain, {
       wallet,
       chain,
@@ -90,7 +89,7 @@ export default async (data: Handler, message) => {
     await createWorker(
       "verifyPendingTransactions",
       verifyPendingTransactions,
-      1000
+      10000
     );
     console.log("Verification worker started");
     workerInitialized = true;

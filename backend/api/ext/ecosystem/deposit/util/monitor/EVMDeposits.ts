@@ -46,9 +46,8 @@ export class EVMDeposits implements IDepositMonitor {
   }
 
   public async watchDeposits(): Promise<void> {
-    console.log(`[watchDeposits] Iniciando monitoramento da carteira ${this.address} na chain ${this.chain}`);
     let provider = chainProviders.get(this.chain);
-    
+
     if (!provider) {
       provider = await initializeWebSocketProvider(this.chain);
       if (!provider) {
@@ -56,7 +55,6 @@ export class EVMDeposits implements IDepositMonitor {
       }
       if (!provider) return;
     }
-
     // Store provider reference for later cleanup
     this.provider = provider;
 
@@ -135,7 +133,6 @@ export class EVMDeposits implements IDepositMonitor {
   }
 
   private async watchTokenDeposits(provider: any, feeDecimals: number) {
-    console.log('I got here');
     const token = await getEcosystemToken(this.chain, this.currency);
     if (!token) {
       console.error(`Token ${this.currency} not found`);
@@ -190,7 +187,6 @@ export class EVMDeposits implements IDepositMonitor {
         if (success) {
           processedTokenTxs.set(log.transactionHash, Date.now());
           console.log(`Processed token deposit ${log.transactionHash}`);
-          provider.on(this.tokenFilter, this.tokenEventListener);
         }
       } catch (error) {
         console.error(
@@ -208,7 +204,6 @@ export class EVMDeposits implements IDepositMonitor {
 
   // Extended stopPolling method to remove event listeners and clear intervals
   public stopPolling() {
-    
     // Remove token deposit event listener if it exists
     if (this.provider && this.tokenEventListener && this.tokenFilter) {
       this.provider.off(this.tokenFilter, this.tokenEventListener);

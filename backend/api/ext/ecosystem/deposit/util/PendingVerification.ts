@@ -1,7 +1,7 @@
 // PendingVerification.ts
 import { loadFromRedis, offloadToRedis } from "@b/utils/eco/redis/deposit";
 import { handleEcosystemDeposit } from "@b/utils/eco/wallet";
-import { hasClients, sendMessageToRoute, sendMessageToRouteClients } from "@b/handler/Websocket";
+import { hasClients, sendMessageToRoute } from "@b/handler/Websocket";
 import { verifyUTXOTransaction } from "@b/utils/eco/utxo";
 import { handleNotification } from "@b/utils/notifications";
 import { unlockAddress } from "../../wallet/utils";
@@ -10,12 +10,17 @@ import {
   initializeHttpProvider,
   initializeWebSocketProvider,
 } from "./ProviderManager";
+
 export async function verifyPendingTransactions() {
+  if (!hasClients(`/api/ext/ecosystem/deposit`)) {
+    return;
+  }
+
   const processingTransactions = new Set();
-  
+
   try {
     const pendingTransactions = await loadFromRedis("pendingTransactions");
-    
+
     if (!pendingTransactions || Object.keys(pendingTransactions).length === 0) {
       return;
     }
@@ -65,8 +70,6 @@ export async function verifyPendingTransactions() {
           } else {
             // EVM-compatible chain verification
             let provider = chainProviders.get(chain);
-            //console.log('verificando o que vem no provider');
-            //console.log(provider);
             if (!provider) {
               provider = await initializeWebSocketProvider(chain);
               if (!provider) {
@@ -81,7 +84,6 @@ export async function verifyPendingTransactions() {
 
             try {
               const receipt = await provider.getTransactionReceipt(txHash);
-
               if (!receipt) {
                 console.log(`Transaction ${txHash} not yet confirmed.`);
                 return; // Keep in pending state
@@ -187,5 +189,4 @@ export async function verifyPendingTransactions() {
   } catch (error) {
     console.error(`Error in verifyPendingTransactions: ${error.message}`);
   }
-  //await new Promise((resolve) => setTimeout(resolve, 10 * 60 * 1000));
 }

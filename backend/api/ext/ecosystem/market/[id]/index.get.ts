@@ -1,34 +1,29 @@
 import { models } from "@b/db";
-import { createError } from "@b/utils/error";
 
 import {
   notFoundMetadataResponse,
   serverErrorResponse,
   unauthorizedResponse,
 } from "@b/utils/query";
-import { baseMarketSchema } from "../utils";
+import { baseMarketSchema } from "./utils";
 
 export const metadata: OperationObject = {
-  summary: "Retrieves a specific ecosystem market",
-  description: "Fetches details of a specific market in the ecosystem.",
-  operationId: "getEcosystemMarket",
+  summary: "Retrieves all ecosystem markets",
+  description:
+    "Fetches a list of all active markets available in the ecosystem.",
+  operationId: "listEcosystemMarkets",
   tags: ["Ecosystem", "Markets"],
-  parameters: [
-    {
-      name: "id",
-      in: "path",
-      required: true,
-      schema: { type: "number", description: "Market ID" },
-    },
-  ],
   responses: {
     200: {
-      description: "Market details retrieved successfully",
+      description: "Markets retrieved successfully",
       content: {
         "application/json": {
           schema: {
-            type: "object",
-            properties: baseMarketSchema,
+            type: "array",
+            items: {
+              type: "object",
+              properties: baseMarketSchema,
+            },
           },
         },
       },
@@ -39,17 +34,9 @@ export const metadata: OperationObject = {
   },
 };
 
-export default async (data: Handler) => {
-  const { params } = data;
-  const { id } = params;
-
-  const market = await models.ecosystemMarket.findOne({
-    where: { id },
-    attributes: ["id", "name", "status"],
+export default async () => {
+  const markets = await models.ecosystemMarket.findAll({
+    where: { status: true },
   });
-
-  if (!market)
-    throw createError({ statusCode: 404, message: "Market not found" });
-
-  return market;
+  return markets;
 };
